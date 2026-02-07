@@ -4,6 +4,9 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>The Valentine Chronicle | Kiss Day</title>
+    <!-- Date Lock Protection - Redirect if day is locked -->
+    <script src="date-lock.js"></script>
+    <script>checkPageAccess(13);</script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet"/>
@@ -90,30 +93,31 @@
             
             <!-- Navigation -->
             <nav class="flex flex-col gap-2 sidebar-nav">
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                <a href="rose-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">deceased</span>
                     <span class="text-sm font-medium">Rose Day</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                <a href="propose-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">ring_volume</span>
                     <span class="text-sm font-medium">Propose Day</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                <a href="chocolate-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">cookie</span>
                     <span class="text-sm font-medium">Chocolate Day</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                <a href="teddy-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">redeem</span>
                     <span class="text-sm font-medium">Teddy Day</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                <a href="promise-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">handshake</span>
                     <span class="text-sm font-medium">Promise Day</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                <a href="hug-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">sentiment_satisfied</span>
                     <span class="text-sm font-medium">Hug Day</span>
                 </a>
+                <!-- Previous nav items were consolidated above -->
                 
                 <!-- Active Item: Kiss Day -->
                 <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-primary/20 to-transparent border border-primary/30 shadow-[0_0_10px_rgba(218,11,11,0.1)] relative overflow-hidden group nav-item active magnetic-btn">
@@ -125,7 +129,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                <a href="valentines-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">favorite_border</span>
                     <span class="text-sm font-medium">Valentine's Day</span>
                 </a>

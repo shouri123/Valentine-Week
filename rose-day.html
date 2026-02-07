@@ -4,6 +4,9 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>The Valentine Chronicle | Rose Day</title>
+    <!-- Date Lock Protection - Redirect if day is locked -->
+    <script src="date-lock.js"></script>
+    <script>checkPageAccess(7);</script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
@@ -94,31 +97,31 @@
                 </a>
                 
                 <!-- Inactive Items -->
-                <a onclick="showToast('Unlock this on Feb 8!', 'locked')" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
+                <a href="propose-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">ring_volume</span>
                     <span class="text-sm font-medium">Propose Day</span>
                 </a>
-                <a onclick="showToast('Unlock this on Feb 9!', 'locked')" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
+                <a href="chocolate-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">cookie</span>
                     <span class="text-sm font-medium">Chocolate Day</span>
                 </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
+                <a href="teddy-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">redeem</span>
                     <span class="text-sm font-medium">Teddy Day</span>
                 </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
+                <a href="promise-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">handshake</span>
                     <span class="text-sm font-medium">Promise Day</span>
                 </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
+                <a href="hug-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">sentiment_satisfied</span>
                     <span class="text-sm font-medium">Hug Day</span>
                 </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
+                <a href="kiss-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">favorite</span>
                     <span class="text-sm font-medium">Kiss Day</span>
                 </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
+                <a href="valentines-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 cursor-pointer nav-item">
                     <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">favorite_border</span>
                     <span class="text-sm font-medium">Valentine's Day</span>
                 </a>
