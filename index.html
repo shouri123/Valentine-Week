@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Valentine Week 2026 - Celebrate love with 8 special days of romance">
+    <title>Valentine Week 2026 💕 | 7 Days of Love</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #e94560);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            min-height: 100vh;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .hero-header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+        }
+        
+        .main-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 10vw, 5rem);
+            color: white;
+            text-shadow: 0 4px 30px rgba(233, 69, 96, 0.5);
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .main-subtitle {
+            font-family: var(--font-script);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+        
+        .year-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, #e94560, #ff6b9d);
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 3px;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+        
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        
+        .day-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            overflow: hidden;
+        }
+        
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--card-gradient);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            border-radius: 23px;
+        }
+        
+        .day-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .day-card:hover::before {
+            opacity: 0.3;
+        }
+        
+        .day-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .day-card:hover .day-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+        
+        .day-date {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        .day-name {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .day-tagline {
+            font-family: var(--font-script);
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .day-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .status-today {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            color: white;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .status-upcoming {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .status-passed {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Card specific gradients */
+        .rose-card { --card-gradient: linear-gradient(135deg, #ff6b6b, #ee5a5a); }
+        .propose-card { --card-gradient: linear-gradient(135deg, #667eea, #764ba2); }
+        .chocolate-card { --card-gradient: linear-gradient(135deg, #8B4513, #D2691E); }
+        .teddy-card { --card-gradient: linear-gradient(135deg, #f5af19, #f12711); }
+        .promise-card { --card-gradient: linear-gradient(135deg, #11998e, #38ef7d); }
+        .hug-card { --card-gradient: linear-gradient(135deg, #fa709a, #fee140); }
+        .kiss-card { --card-gradient: linear-gradient(135deg, #ff0844, #ffb199); }
+        .valentine-card { --card-gradient: linear-gradient(135deg, #ff416c, #ff4b2b); }
+        
+        .footer-main {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        .footer-text {
+            font-family: var(--font-script);
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-subtext {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        .love-quote {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        .quote-text {
+            font-family: var(--font-script);
+            font-size: 1.5rem;
+            color: white;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+        
+        .quote-author {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .days-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+            
+            .day-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Elements -->
+    <div class="floating-element">💕</div>
+    <div class="floating-element">❤️</div>
+    <div class="floating-element">💗</div>
+    <div class="floating-element">💖</div>
+    <div class="floating-element">💓</div>
+    <div class="floating-element">💘</div>
+
+    <!-- Hero Header -->
+    <header class="hero-header">
+        <h1 class="main-title">Valentine Week</h1>
+        <p class="main-subtitle">7 Days of Love & Romance</p>
+        <span class="year-badge">FEBRUARY 2026</span>
+    </header>
+
+    <!-- Love Quote -->
+    <section class="love-quote">
+        <p class="quote-text">"Love is composed of a single soul inhabiting two bodies."</p>
+        <p class="quote-author">— Aristotle</p>
+    </section>
+
+    <!-- Days Grid -->
+    <main class="days-grid">
+        <!-- Rose Day -->
+        <a href="rose-day.html" class="day-card rose-card">
+            <span class="day-status status-today">Today!</span>
+            <span class="day-icon">🌹</span>
+            <p class="day-date">February 7</p>
+            <h2 class="day-name">Rose Day</h2>
+            <p class="day-tagline">Where love begins to bloom</p>
+        </a>
+        
+        <!-- Propose Day -->
+        <a href="propose-day.html" class="day-card propose-card">
+            <span class="day-status status-upcoming">Upcoming</span>
+            <span class="day-icon">💍</span>
+            <p class="day-date">February 8</p>
+            <h2 class="day-name">Propose Day</h2>
+            <p class="day-tagline">Take the leap of love</p>
+        </a>
+        
+        <!-- Chocolate Day -->
+        <a href="chocolate-day.html" class="day-card chocolate-card">
+            <span class="day-status status-upcoming">Upcoming</span>
+            <span class="day-icon">🍫</span>
+            <p class="day-date">February 9</p>
+            <h2 class="day-name">Chocolate Day</h2>
+            <p class="day-tagline">Sweet moments of love</p>
+        </a>
+        
+        <!-- Teddy Day -->
+        <a href="teddy-day.html" class="day-card teddy-card">
+            <span class="day-status status-upcoming">Upcoming</span>
+            <span class="day-icon">🧸</span>
+            <p class="day-date">February 10</p>
+            <h2 class="day-name">Teddy Day</h2>
+            <p class="day-tagline">A hug that lasts forever</p>
+        </a>
+        
+        <!-- Promise Day -->
+        <a href="promise-day.html" class="day-card promise-card">
+            <span class="day-status status-upcoming">Upcoming</span>
+            <span class="day-icon">🤝</span>
+            <p class="day-date">February 11</p>
+            <h2 class="day-name">Promise Day</h2>
+            <p class="day-tagline">Words that build forever</p>
+        </a>
+        
+        <!-- Hug Day -->
+        <a href="hug-day.html" class="day-card hug-card">
+            <span class="day-status status-upcoming">Upcoming</span>
+            <span class="day-icon">🤗</span>
+            <p class="day-date">February 12</p>
+            <h2 class="day-name">Hug Day</h2>
+            <p class="day-tagline">Warmth in every embrace</p>
+        </a>
+        
+        <!-- Kiss Day -->
+        <a href="kiss-day.html" class="day-card kiss-card">
+            <span class="day-status status-upcoming">Upcoming</span>
+            <span class="day-icon">💋</span>
+            <p class="day-date">February 13</p>
+            <h2 class="day-name">Kiss Day</h2>
+            <p class="day-tagline">Where words end, love begins</p>
+        </a>
+        
+        <!-- Valentine's Day -->
+        <a href="valentines-day.html" class="day-card valentine-card">
+            <span class="day-status status-upcoming">Upcoming</span>
+            <span class="day-icon">❤️</span>
+            <p class="day-date">February 14</p>
+            <h2 class="day-name">Valentine's Day</h2>
+            <p class="day-tagline">The day love shines brightest</p>
+        </a>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-main">
+        <p class="footer-text">Spread love, one day at a time 💕</p>
+        <p class="footer-subtext">Click on any day to explore its special meaning</p>
+    </footer>
+
+    <script>
+        // Update status based on current date
+        const today = new Date();
+        const currentDay = today.getDate();
+        const currentMonth = today.getMonth() + 1; // Months are 0-indexed
+        
+        const valentineDays = [
+            { day: 7, card: '.rose-card' },
+            { day: 8, card: '.propose-card' },
+            { day: 9, card: '.chocolate-card' },
+            { day: 10, card: '.teddy-card' },
+            { day: 11, card: '.promise-card' },
+            { day: 12, card: '.hug-card' },
+            { day: 13, card: '.kiss-card' },
+            { day: 14, card: '.valentine-card' }
+        ];
+        
+        if (currentMonth === 2) {
+            valentineDays.forEach(v => {
+                const card = document.querySelector(v.card);
+                const statusEl = card.querySelector('.day-status');
+                
+                if (currentDay === v.day) {
+                    statusEl.textContent = "Today!";
+                    statusEl.className = 'day-status status-today';
+                } else if (currentDay > v.day) {
+                    statusEl.textContent = "Celebrated";
+                    statusEl.className = 'day-status status-passed';
+                } else {
+                    statusEl.textContent = "Upcoming";
+                    statusEl.className = 'day-status status-upcoming';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

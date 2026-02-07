@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Propose Day Experience - Chronicle 2026</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f4c025", // Gold
+                        "primary-dark": "#b38b15",
+                        "primary-light": "#ffe082",
+                        "background-dark": "#1a160d", // Deep Onyx
+                        "sidebar-bg": "rgba(26, 22, 13, 0.7)",
+                        "border-gold": "rgba(244, 192, 37, 0.2)",
+                        "text-main": "#fffaeb",
+                        "text-muted": "#d4c5a3",
+                    },
+                    fontFamily: {
+                        "sans": ["Plus Jakarta Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                    },
+                    backgroundImage: {
+                        'amber-glow': 'radial-gradient(circle at center, rgba(244, 192, 37, 0.15) 0%, rgba(26, 22, 13, 0) 70%)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom floating animation */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        
+        .glass-panel {
+            background: rgba(35, 30, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(244, 192, 37, 0.15);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .gold-glow {
+            text-shadow: 0 0 20px rgba(244, 192, 37, 0.4);
+        }
+
+        /* Card Active State */
+        .card-active {
+            border-color: #f4c025 !important;
+            background-color: rgba(244, 192, 37, 0.1) !important;
+            box-shadow: 0 0 20px rgba(244, 192, 37, 0.15) !important;
+        }
+        .card-active .icon-bg {
+            background-color: #f4c025 !important;
+            color: #1a160d !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #5c4d26; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f4c025; }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background-dark text-text-main antialiased overflow-hidden opacity-0" id="app-body">
+
+<div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+<div class="flex h-screen w-full relative">
+    <!-- Ambient Background -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-primary/10 rounded-full filter blur-[120px] opacity-60 animate-pulse"></div>
+        <div class="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-primary/5 rounded-full filter blur-[100px] opacity-40"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[800px] bg-amber-glow opacity-60"></div>
+    </div>
+
+    <!-- Mobile Overlay (Backdrop) -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="main-sidebar" class="hidden md:flex flex-col fixed md:static inset-y-0 left-0 z-50 w-80 h-full glass-panel border-r border-border-gold overflow-y-auto sidebar-panel shadow-2xl md:shadow-none">
+        <div class="p-8 pb-4 flex justify-between items-start">
+            <div>
+                <h1 class="text-white text-xl font-bold tracking-tight font-serif italic">The Chronicle</h1>
+                <p class="text-primary text-[10px] font-bold uppercase tracking-[0.2em] mt-1">Valentine 2026</p>
+            </div>
+            <!-- Mobile Close Button -->
+            <button onclick="toggleSidebar()" class="md:hidden text-text-muted hover:text-white p-1">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <!-- Timeline -->
+        <div class="flex flex-col gap-1 px-4 py-2 relative sidebar-nav flex-1">
+            <div class="absolute left-[34px] top-6 bottom-6 w-0.5 bg-white/10 z-0"></div>
+            
+            <!-- Rose Day (Done) -->
+            <a class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors z-10 opacity-60 nav-item magnetic-btn" href="#">
+                <div class="relative flex items-center justify-center w-8 h-8 bg-white/10 rounded-full text-white/50 border border-white/10">
+                    <span class="material-symbols-outlined text-[18px]">check</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-medium text-sm">Rose Day</span>
+                    <span class="text-xs text-text-muted">Feb 07</span>
+                </div>
+            </a>
+
+            <!-- Propose Day (Active) -->
+            <a class="group flex items-center gap-4 px-4 py-3 rounded-xl bg-gradient-to-r from-primary/20 to-transparent border border-primary/30 shadow-[0_0_15px_rgba(244,192,37,0.15)] z-10 nav-item active magnetic-btn" href="#">
+                <div class="relative flex items-center justify-center w-8 h-8 bg-primary text-background-dark rounded-full shadow-lg shadow-primary/40 ring-2 ring-primary/20">
+                    <span class="material-symbols-outlined text-[18px] fill-1">diamond</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-white font-bold text-sm">Propose Day</span>
+                    <span class="text-xs text-primary font-medium">Feb 08 • Today</span>
+                </div>
+            </a>
+
+            <!-- Future Days -->
+            <a class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors z-10 opacity-40 nav-item magnetic-btn" href="#">
+                <div class="relative flex items-center justify-center w-8 h-8 bg-background-dark border border-white/10 rounded-full text-white/30">
+                    <span class="material-symbols-outlined text-[18px]">lock</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-medium text-sm">Chocolate Day</span>
+                    <span class="text-xs text-text-muted">Feb 09</span>
+                </div>
+            </a>
+            <a class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors z-10 opacity-40 nav-item magnetic-btn" href="#">
+                <div class="relative flex items-center justify-center w-8 h-8 bg-background-dark border border-white/10 rounded-full text-white/30">
+                    <span class="material-symbols-outlined text-[18px]">lock</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-medium text-sm">Teddy Day</span>
+                    <span class="text-xs text-text-muted">Feb 10</span>
+                </div>
+            </a>
+            <a class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors z-10 opacity-40 nav-item magnetic-btn" href="#">
+                <div class="relative flex items-center justify-center w-8 h-8 bg-background-dark border border-white/10 rounded-full text-white/30">
+                    <span class="material-symbols-outlined text-[18px]">lock</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-medium text-sm">Promise Day</span>
+                    <span class="text-xs text-text-muted">Feb 11</span>
+                </div>
+            </a>
+            <a class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors z-10 opacity-40 nav-item magnetic-btn" href="#">
+                <div class="relative flex items-center justify-center w-8 h-8 bg-background-dark border border-white/10 rounded-full text-white/30">
+                    <span class="material-symbols-outlined text-[18px]">lock</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-medium text-sm">Hug Day</span>
+                    <span class="text-xs text-text-muted">Feb 12</span>
+                </div>
+            </a>
+            <a class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors z-10 opacity-40 nav-item magnetic-btn" href="#">
+                <div class="relative flex items-center justify-center w-8 h-8 bg-background-dark border border-white/10 rounded-full text-white/30">
+                    <span class="material-symbols-outlined text-[18px]">lock</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-medium text-sm">Kiss Day</span>
+                    <span class="text-xs text-text-muted">Feb 13</span>
+                </div>
+            </a>
+            <a class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors z-10 opacity-40 nav-item magnetic-btn" href="#">
+                <div class="relative flex items-center justify-center w-8 h-8 bg-background-dark border border-white/10 rounded-full text-white/30">
+                    <span class="material-symbols-outlined text-[18px]">lock</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-medium text-sm">Valentine's Day</span>
+                    <span class="text-xs text-text-muted">Feb 14</span>
+                </div>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 h-full overflow-y-auto z-10 relative">
+        <!-- Mobile Header -->
+        <div class="md:hidden flex items-center justify-between p-4 glass-panel sticky top-0 z-40 bg-background-dark/80 backdrop-blur-xl border-b border-border-gold">
+            <span class="font-bold text-white font-serif tracking-wide">The Chronicle</span>
+            <button onclick="toggleSidebar()" class="text-primary hover:text-white transition-colors p-2">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+
+        <div class="max-w-[1600px] mx-auto px-6 py-10 md:py-16 flex flex-col gap-10">
+            
+            <!-- Hero Section -->
+            <header class="flex flex-col md:flex-row gap-8 items-center justify-between mb-8 hero-section">
+                <div class="flex flex-col gap-6 max-w-2xl hero-text z-10">
+                    <div class="flex items-center gap-3">
+                        <span class="h-px w-8 bg-primary"></span>
+                        <span class="text-primary text-sm font-bold tracking-wider uppercase">February 8th</span>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-serif italic text-white leading-[0.9] tracking-tight gold-glow">
+                        The <span class="text-primary not-italic font-sans font-black">Question</span>
+                    </h1>
+                    <p class="text-text-muted text-lg leading-relaxed max-w-lg">
+                        Love is not just looking at each other, it's looking in the same direction. If you could freeze this moment and ask one question for the future, what would it be?
+                    </p>
+                    
+                    <!-- Quote Card -->
+                    <div class="glass-panel p-6 rounded-xl border-l-4 border-l-primary relative max-w-md mt-2">
+                        <span class="material-symbols-outlined text-4xl text-primary/20 absolute top-2 right-2">format_quote</span>
+                        <p class="text-white/90 italic font-medium">"Courage is the first step to forever. Capture your intent in a timeless letter."</p>
+                    </div>
+                </div>
+
+                <!-- 3D Ring Visual (Hero Widget) -->
+                <div class="relative w-full max-w-[450px] aspect-square hero-widget flex items-center justify-center">
+                    <div class="absolute inset-0 bg-primary/20 blur-[80px] rounded-full animate-pulse"></div>
+                    <div class="relative z-10 w-[90%] h-[90%] rounded-3xl overflow-hidden glass-panel p-2 flex items-center justify-center border border-white/10 group">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent opacity-50 group-hover:opacity-80 transition-opacity"></div>
+                        <img class="relative w-full h-full object-cover rounded-2xl shadow-2xl animate-float" src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2670&auto=format&fit=crop" alt="Diamond Ring in Box"/>
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute bottom-6 right-6 bg-background-dark/80 backdrop-blur-md px-4 py-2 rounded-full border border-primary/30 shadow-lg flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                            <span class="text-xs font-bold text-white tracking-wide uppercase">Yes?</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Interactive Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 content-grid">
+                
+                <!-- Left Column: Proposal Builder -->
+                <div class="lg:col-span-8 flex flex-col gap-6">
+                    
+                    <!-- Proposal Vibe Selector (Added Feature) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-2">
+                        <!-- Card 1 -->
+                        <button onclick="selectProposal(this, 'My dearest, from the moment we met, I knew. Will you make me the happiest person alive?')" class="proposal-card group relative flex flex-col items-start gap-4 p-5 rounded-2xl border border-white/10 bg-white/5 hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 text-left w-full h-full">
+                            <div class="icon-bg w-10 h-10 rounded-full bg-background-dark flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-background-dark transition-all duration-300 border border-white/10">
+                                <span class="material-symbols-outlined text-[20px]">history_edu</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base group-hover:text-primary transition-colors">Classic</h3>
+                                <p class="text-xs text-white/50 mt-1">Timeless & Elegant</p>
+                            </div>
+                        </button>
+                        <!-- Card 2 -->
+                        <button onclick="selectProposal(this, 'Life is our greatest adventure. I don\'t want to explore another map without you by my side.')" class="proposal-card group relative flex flex-col items-start gap-4 p-5 rounded-2xl border border-white/10 bg-white/5 hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 text-left w-full h-full">
+                            <div class="icon-bg w-10 h-10 rounded-full bg-background-dark flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-background-dark transition-all duration-300 border border-white/10">
+                                <span class="material-symbols-outlined text-[20px]">explore</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base group-hover:text-primary transition-colors">Adventure</h3>
+                                <p class="text-xs text-white/50 mt-1">Wild & Free</p>
+                            </div>
+                        </button>
+                        <!-- Card 3 -->
+                        <button onclick="selectProposal(this, 'You are my sun, my moon, and all my stars. Let us write our constellation together.')" class="proposal-card group relative flex flex-col items-start gap-4 p-5 rounded-2xl border border-white/10 bg-white/5 hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 text-left w-full h-full">
+                            <div class="icon-bg w-10 h-10 rounded-full bg-background-dark flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-background-dark transition-all duration-300 border border-white/10">
+                                <span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base group-hover:text-primary transition-colors">Poetic</h3>
+                                <p class="text-xs text-white/50 mt-1">Deep & Soulful</p>
+                            </div>
+                        </button>
+                        <!-- Card 4 -->
+                        <button onclick="selectProposal(this, 'Look, I\'m bad at speeches. I just love you. A lot. Marry me?')" class="proposal-card group relative flex flex-col items-start gap-4 p-5 rounded-2xl border border-white/10 bg-white/5 hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 text-left w-full h-full">
+                            <div class="icon-bg w-10 h-10 rounded-full bg-background-dark flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-background-dark transition-all duration-300 border border-white/10">
+                                <span class="material-symbols-outlined text-[20px]">favorite</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base group-hover:text-primary transition-colors">Candid</h3>
+                                <p class="text-xs text-white/50 mt-1">Real & Raw</p>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="glass-panel rounded-2xl p-1 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/10 to-transparent rounded-bl-full pointer-events-none"></div>
+                        
+                        <!-- Toolbar (Enhanced Visibility) -->
+                        <div class="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/5 rounded-t-xl">
+                            <div class="flex items-center gap-2 text-white/60">
+                                <span class="material-symbols-outlined text-[20px]">edit_note</span>
+                                <span class="text-sm font-bold uppercase tracking-widest">Letter of Intent</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="addFormat('**')" class="flex items-center justify-center w-8 h-8 rounded-lg bg-background-dark border border-white/20 text-white/70 hover:bg-primary hover:text-background-dark hover:border-primary transition-all shadow-sm" title="Bold">
+                                    <span class="material-symbols-outlined text-[18px]">format_bold</span>
+                                </button>
+                                <button onclick="addFormat('*')" class="flex items-center justify-center w-8 h-8 rounded-lg bg-background-dark border border-white/20 text-white/70 hover:bg-primary hover:text-background-dark hover:border-primary transition-all shadow-sm" title="Italic">
+                                    <span class="material-symbols-outlined text-[18px]">format_italic</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Text Area -->
+                        <div class="relative">
+                            <textarea id="proposal-text" class="w-full bg-transparent border-none text-white placeholder-white/20 text-lg leading-relaxed p-8 pb-16 min-h-[300px] resize-none focus:ring-0 font-serif" placeholder="Dearest... Write your proposal or select a style above."></textarea>
+                            
+                            <!-- Smart Tags (Added Feature) -->
+                            <div class="absolute bottom-4 left-8 right-8 flex gap-2 overflow-x-auto no-scrollbar mask-gradient-r">
+                                <span onclick="addTag('#Forever')" class="px-3 py-1 rounded-full bg-background-dark border border-white/10 text-xs font-medium text-text-muted cursor-pointer hover:border-primary hover:text-primary transition-colors whitespace-nowrap">#Forever</span>
+                                <span onclick="addTag('#Soulmate')" class="px-3 py-1 rounded-full bg-background-dark border border-white/10 text-xs font-medium text-text-muted cursor-pointer hover:border-primary hover:text-primary transition-colors whitespace-nowrap">#Soulmate</span>
+                                <span onclick="addTag('#Yes')" class="px-3 py-1 rounded-full bg-background-dark border border-white/10 text-xs font-medium text-text-muted cursor-pointer hover:border-primary hover:text-primary transition-colors whitespace-nowrap">#Yes</span>
+                                <span onclick="addTag('#MarryMe')" class="px-3 py-1 rounded-full bg-background-dark border border-white/10 text-xs font-medium text-primary cursor-pointer border-primary/30 whitespace-nowrap">#MarryMe</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Footer Actions -->
+                        <div class="flex justify-between items-center px-6 py-4 border-t border-white/5 bg-background-dark/50 rounded-b-xl">
+                            <div class="flex items-center gap-2 text-xs text-white/30">
+                                <span class="material-symbols-outlined text-[14px]">lock</span>
+                                End-to-End Encrypted
+                            </div>
+                            <div class="flex gap-3">
+                                <button class="px-6 py-2.5 rounded-lg border border-white/10 hover:bg-white/5 text-white text-sm font-bold transition-all hover:border-white/20">Save Draft</button>
+                                <button onclick="sendProposal()" class="seal-btn px-8 py-2.5 rounded-lg bg-primary hover:bg-primary-light text-background-dark text-sm font-bold shadow-[0_0_20px_rgba(244,192,37,0.3)] hover:shadow-[0_0_30px_rgba(244,192,37,0.5)] transition-all flex items-center gap-2 transform active:scale-95">
+                                    <span class="material-symbols-outlined text-[18px]">mail</span>
+                                    Seal & Send
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Stats & Gallery -->
+                <div class="lg:col-span-4 flex flex-col gap-6">
+                    
+                    <!-- Stats Card -->
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden">
+                        <div class="flex items-center justify-between">
+                            <span class="text-text-muted text-xs font-bold uppercase tracking-wider">Global Proposals</span>
+                            <span class="material-symbols-outlined text-primary text-[20px]">public</span>
+                        </div>
+                        <div class="flex items-end gap-2">
+                            <span class="text-4xl font-bold text-white tracking-tight">142,893</span>
+                            <span class="text-xs text-green-400 mb-1.5 font-medium">+12%</span>
+                        </div>
+                        <div class="w-full bg-white/10 h-1.5 rounded-full mt-1 overflow-hidden">
+                            <div class="bg-primary h-full w-[70%] rounded-full animate-pulse"></div>
+                        </div>
+                    </div>
+
+                    <!-- Countdown Card -->
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col gap-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-text-muted text-xs font-bold uppercase tracking-wider">Time Remaining</span>
+                            <span class="material-symbols-outlined text-primary text-[20px]">timer</span>
+                        </div>
+                        <span class="text-3xl font-bold text-white tracking-tight font-mono" id="countdown">00:00:00</span>
+                        <span class="text-xs text-white/40">Until Midnight</span>
+                    </div>
+
+                    <!-- Gallery Mini -->
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col gap-4 group cursor-pointer hover:border-primary/30 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <span class="text-text-muted text-xs font-bold uppercase tracking-wider">Inspiration</span>
+                            <span class="material-symbols-outlined text-white/40 text-[20px] group-hover:text-primary transition-colors">arrow_forward</span>
+                        </div>
+                        <div class="flex -space-x-3 mt-1">
+                            <div class="w-10 h-10 rounded-full border-2 border-background-dark bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=2671&auto=format&fit=crop');"></div>
+                            <div class="w-10 h-10 rounded-full border-2 border-background-dark bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1606216794074-735e91aaad40?q=80&w=2670&auto=format&fit=crop');"></div>
+                            <div class="w-10 h-10 rounded-full border-2 border-background-dark bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=2576&auto=format&fit=crop');"></div>
+                            <div class="w-10 h-10 rounded-full border-2 border-background-dark bg-primary/20 text-primary text-xs font-bold flex items-center justify-center backdrop-blur-sm">
+                                +2k
+                            </div>
+                        </div>
+                        <p class="text-xs text-white/40 leading-snug">Browse community proposals and stories.</p>
+                    </div>
+
+                </div>
+            </div>
+            
+            <footer class="mt-8 border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-text-muted text-sm">© 2026 The Chronicle.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-text-muted hover:text-primary transition-colors"><span class="material-symbols-outlined">share</span></a>
+                    <a href="#" class="text-text-muted hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite</span></a>
+                </div>
+            </footer>
+        </div>
+    </main>
+</div>
+
+<script>
+    // --- Interactions ---
+
+    // Toggle Sidebar Function
+    function toggleSidebar() {
+        const sidebar = document.getElementById('main-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        
+        if (sidebar.classList.contains('hidden')) {
+            sidebar.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+        } else {
+            sidebar.classList.add('hidden');
+            overlay.classList.add('hidden');
+        }
+    }
+
+    // Select Proposal Vibe
+    function selectProposal(btn, text) {
+        document.querySelectorAll('.proposal-card').forEach(c => c.classList.remove('card-active'));
+        btn.classList.add('card-active');
+        
+        const input = document.getElementById('proposal-text');
+        input.value = text;
+        gsap.from(input, { scale: 0.99, duration: 0.2, ease: "power2.out" });
+        input.focus();
+    }
+
+    // Add Tag
+    function addTag(tag) {
+        const input = document.getElementById('proposal-text');
+        if (input.value.includes(tag)) return;
+        input.value += (input.value.length > 0 ? '\n' : '') + tag;
+        gsap.from(event.target, { scale: 0.9, duration: 0.1, yoyo: true, repeat: 1 });
+    }
+
+    // Add Format
+    function addFormat(symbol) {
+        const input = document.getElementById('proposal-text');
+        input.value += symbol;
+        input.focus();
+    }
+
+    // Toast Notification
+    function showToast(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        
+        const colors = 'bg-background-dark border border-primary text-white shadow-[0_0_20px_rgba(244,192,37,0.3)]';
+        const iconColor = 'text-primary';
+        
+        toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl ${colors} transform translate-y-10 opacity-0 transition-all duration-300 min-w-[200px] z-[100] backdrop-blur-md`;
+        toast.innerHTML = `
+            <span class="material-symbols-outlined ${iconColor} text-sm">diamond</span>
+            <span class="text-xs font-bold tracking-wide">${message}</span>
+        `;
+        
+        container.appendChild(toast);
+        
+        requestAnimationFrame(() => {
+            toast.classList.remove('translate-y-10', 'opacity-0');
+        });
+
+        setTimeout(() => {
+            toast.classList.add('translate-y-10', 'opacity-0');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    // Send Proposal Logic
+    function sendProposal() {
+        const input = document.getElementById('proposal-text');
+        
+        if (!input.value.trim()) {
+            gsap.from(input, { x: 10, duration: 0.1, repeat: 5, yoyo: true });
+            showToast("Your letter is empty!", "error");
+            input.focus();
+            return;
+        }
+
+        const btn = document.querySelector('.seal-btn');
+        const originalContent = btn.innerHTML;
+        
+        btn.innerHTML = '<span class="material-symbols-outlined animate-spin">autorenew</span>';
+        
+        setTimeout(() => {
+            showToast("Proposal Sealed & Sent 💍");
+            btn.innerHTML = originalContent;
+            input.value = "";
+            
+            // Gold Confetti
+            for(let i=0; i<40; i++) {
+                createGoldParticle(btn);
+            }
+        }, 1500);
+    }
+
+    function createGoldParticle(origin) {
+        const particle = document.createElement('div');
+        const rect = origin.getBoundingClientRect();
+        const colors = ['#f4c025', '#ffe082', '#ffffff'];
+        
+        particle.classList.add('fixed', 'w-1.5', 'h-1.5', 'rounded-sm', 'pointer-events-none', 'z-50');
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.left = (rect.left + rect.width/2) + 'px';
+        particle.style.top = (rect.top + rect.height/2) + 'px';
+        
+        document.body.appendChild(particle);
+        
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 50 + Math.random() * 150;
+        
+        gsap.to(particle, {
+            x: Math.cos(angle) * velocity,
+            y: Math.sin(angle) * velocity + 50,
+            rotation: Math.random() * 360,
+            opacity: 0,
+            duration: 1 + Math.random(),
+            ease: "power2.out",
+            onComplete: () => particle.remove()
+        });
+    }
+
+    // Countdown Logic
+    function startCountdown() {
+        function update() {
+            const now = new Date();
+            const target = new Date();
+            target.setHours(24, 0, 0, 0); // Midnight tonight
+            
+            let diff = target - now;
+            if (diff < 0) diff = 0;
+
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').textContent = 
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+        setInterval(update, 1000);
+        update();
+    }
+
+    // GSAP Init
+    window.addEventListener('load', () => {
+        gsap.registerPlugin();
+        const tl = gsap.timeline();
+
+        startCountdown();
+
+        // Reveal Page
+        tl.to("#app-body", { opacity: 1, duration: 0.8 });
+
+        // Hero
+        tl.from(".hero-text", { y: 20, opacity: 0, duration: 0.8 }, "-=0.2");
+        tl.from(".hero-widget", { scale: 0.9, opacity: 0, duration: 0.8, ease: "back.out(1.7)" }, "-=0.6");
+
+        // Content
+        tl.from(".glass-panel", { y: 30, opacity: 0, duration: 0.8, ease: "power2.out", stagger: 0.1 }, "-=0.4");
+        tl.from(".proposal-card", { y: 20, opacity: 0, stagger: 0.1, duration: 0.6, ease: "power2.out" }, "-=0.4");
+        
+        // Magnetic Buttons
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(btn, { x: x * 0.2, y: y * 0.2, duration: 0.3, ease: "power2.out" });
+            });
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, { x: 0, y: 0, duration: 0.3, ease: "elastic.out(1, 0.5)" });
+            });
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>The Valentine Chronicle | Teddy Day</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee", // Sky Blue
+                        "primary-hover": "#1a73e8",
+                        "bg-light": "#f8fbff", // Very light blue-white
+                        "sidebar-bg": "#ffffff",
+                        "border-light": "#e2e8f0",
+                        "text-main": "#1e293b",
+                        "text-muted": "#64748b",
+                        "soft-blue": "#e0f2ff",
+                    },
+                    fontFamily: {
+                        "sans": ["Spline Sans", "sans-serif"],
+                    },
+                    backgroundImage: {
+                        'cloud-gradient': 'linear-gradient(135deg, #f0f9ff 0%, #e0f2ff 100%)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: "Spline Sans", sans-serif; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            /* Transitions handled by GSAP now */
+        }
+
+        /* Pulse Ring Animation */
+        .pulse-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(43, 140, 238, 0.3);
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-bg-light text-text-main min-h-screen flex flex-col md:flex-row overflow-hidden opacity-0" id="app-body">
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="w-full md:w-[320px] flex-shrink-0 bg-white/70 backdrop-blur-xl flex flex-col border-r border-white/50 h-screen overflow-y-auto relative z-20 sidebar-panel">
+        <div class="p-6">
+            <!-- Header -->
+            <div class="flex gap-4 items-center mb-8 sidebar-header">
+                <div class="relative w-12 h-12 flex items-center justify-center bg-blue-50/80 rounded-full border border-primary/20 shadow-sm">
+                    <span class="text-2xl">🧸</span>
+                </div>
+                <div class="flex flex-col">
+                    <h1 class="text-text-main text-lg font-bold leading-tight tracking-tight">The Chronicle</h1>
+                    <p class="text-primary text-[10px] font-bold uppercase tracking-[0.2em]">Valentine 2026</p>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="flex flex-col gap-2 sidebar-nav">
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/50 group opacity-70 hover:opacity-100 nav-item magnetic-btn">
+                    <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">deceased</span>
+                    <span class="text-sm font-medium">Rose Day</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/50 group opacity-70 hover:opacity-100 nav-item magnetic-btn">
+                    <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">ring_volume</span>
+                    <span class="text-sm font-medium">Propose Day</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/50 group opacity-70 hover:opacity-100 nav-item magnetic-btn">
+                    <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">cookie</span>
+                    <span class="text-sm font-medium">Chocolate Day</span>
+                </a>
+                
+                <!-- Active Item: Teddy Day -->
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-50/80 to-white/80 border border-blue-100/50 shadow-sm relative overflow-hidden group nav-item active magnetic-btn">
+                    <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span class="material-symbols-outlined text-primary fill-current">redeem</span>
+                    <div class="flex flex-col">
+                        <span class="text-text-main text-sm font-bold">Teddy Day</span>
+                        <span class="text-[10px] text-primary">Feb 10 • Entry 04</span>
+                    </div>
+                </a>
+
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/50 group opacity-70 hover:opacity-100 nav-item magnetic-btn">
+                    <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">handshake</span>
+                    <span class="text-sm font-medium">Promise Day</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/50 group opacity-70 hover:opacity-100 nav-item magnetic-btn">
+                    <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">sentiment_satisfied</span>
+                    <span class="text-sm font-medium">Hug Day</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/50 group opacity-70 hover:opacity-100 nav-item magnetic-btn">
+                    <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">favorite</span>
+                    <span class="text-sm font-medium">Kiss Day</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/50 group opacity-70 hover:opacity-100 nav-item magnetic-btn">
+                    <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">favorite_border</span>
+                    <span class="text-sm font-medium">Valentine's Day</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="mt-auto p-6 flex flex-col gap-6 bg-transparent sidebar-footer border-t border-white/50">
+            <div class="flex flex-col gap-3">
+                <div class="flex justify-between items-end">
+                    <span class="text-text-muted text-[10px] font-bold uppercase tracking-widest">Next Chapter In</span>
+                    <span class="material-symbols-outlined text-primary text-sm animate-pulse">timer</span>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="bg-white/60 rounded-lg p-2 text-center border border-white/60 shadow-sm">
+                        <span id="cd-h" class="block text-lg font-bold text-text-main font-mono">00</span>
+                        <span class="text-[8px] text-primary uppercase">Hrs</span>
+                    </div>
+                    <div class="bg-white/60 rounded-lg p-2 text-center border border-white/60 shadow-sm">
+                        <span id="cd-m" class="block text-lg font-bold text-text-main font-mono">00</span>
+                        <span class="text-[8px] text-primary uppercase">Min</span>
+                    </div>
+                    <div class="bg-white/60 rounded-lg p-2 text-center border border-white/60 shadow-sm">
+                        <span id="cd-s" class="block text-lg font-bold text-text-main font-mono">00</span>
+                        <span class="text-[8px] text-primary uppercase">Sec</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+                <button class="text-text-muted hover:text-text-main transition-colors flex items-center gap-2 text-xs">
+                    <span class="material-symbols-outlined text-[16px]">settings</span>
+                    Prefs
+                </button>
+                <button class="text-text-muted hover:text-primary transition-colors flex items-center gap-2 text-xs">
+                    <span class="material-symbols-outlined text-[16px]">logout</span>
+                    Exit
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 relative h-screen overflow-y-auto bg-bg-light scroll-smooth main-content">
+        <!-- Ambient Background (Abstract Clouds) -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+            <div class="bg-blob absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-100 rounded-full filter blur-[100px] opacity-60"></div>
+            <div class="bg-blob absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-indigo-50 rounded-full filter blur-[80px] opacity-70"></div>
+        </div>
+
+        <div class="relative z-10 max-w-[1600px] mx-auto px-6 py-10 md:px-12 lg:px-16">
+            
+            <!-- Hero Section -->
+            <header class="flex flex-col md:flex-row gap-8 items-center justify-between mb-12 hero-section">
+                <div class="flex flex-col gap-4 max-w-2xl hero-text z-10">
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1 rounded-full bg-white/80 border border-blue-100/50 text-primary text-xs font-bold uppercase tracking-wider shadow-sm backdrop-blur-sm">Entry 04</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                        <span class="text-text-muted text-sm">February 10th</span>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-black text-text-main tracking-tight drop-shadow-sm leading-tight">
+                        Teddy Day
+                        <span class="inline-block align-middle ml-2 text-5xl teddy-icon">🧸</span>
+                    </h1>
+                    <h2 class="text-xl text-text-muted font-normal leading-relaxed max-w-lg hero-desc">
+                        The Comfort of Presence. Teddy Day isn't just about plush toys; it's about the tangible feeling of security and the emotional safety net a partner provides.
+                    </h2>
+                    <div class="flex gap-4 mt-2">
+                         <button onclick="triggerConfetti(event); document.getElementById('hug-input').focus();" class="hero-btn flex items-center justify-center rounded-2xl h-12 px-6 bg-primary hover:bg-primary-hover text-white text-sm font-bold shadow-lg shadow-blue-400/20">
+                            Send Virtual Hug
+                        </button>
+                        <button class="hero-btn flex items-center justify-center rounded-2xl h-12 px-6 bg-white/60 hover:bg-white text-text-main text-sm font-bold border border-white/60 hover:shadow-md backdrop-blur-sm">
+                            Read Story
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3D Teddy Visual (Hero Widget) -->
+                <div class="relative w-full max-w-[400px] aspect-square hero-widget">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-100/50 to-white/50 rounded-full filter blur-3xl transform scale-75"></div>
+                    <div class="pulse-ring w-full h-full inset-0"></div>
+                    <div class="pulse-ring w-[120%] h-[120%] -inset-[10%]" style="animation-delay: 0.5s"></div>
+                    
+                    <div class="relative z-10 w-full h-full rounded-3xl overflow-hidden glass-card p-3 flex items-center justify-center">
+                        <img alt="3D Teddy Bear" class="w-full h-full object-cover rounded-2xl shadow-inner teddy-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiTzyU6pW4bPmmj4L3rUkDuDENGxwzfwNeJNU-X4TeQ-PvTqkXrUYf5-eIPYTVf2KjFN9YlQhLpWEj5-T1C1xrntPrvj_H7MJgZ6DYIgsLKhU04rkVF3LBN4Aw4-aE_q7uSv8s3FaITOnpruj1QenDMlUfAPJ0ahbA7mqk8ccnw3nv-6WJJr5avlDEuAc2h44L88kfLqId6DPcKCMI8iT4wBl2IWryZ8IQzlnkpM0JCo0XSfwx68Zq7pF4YnD9fc2h1S7JlEELMNI"/>
+                        
+                        <!-- Floating Badges -->
+                        <div class="floating-badge absolute -top-4 -right-4 bg-white/80 p-3 rounded-2xl shadow-lg backdrop-blur-md">
+                            <span class="material-symbols-outlined text-primary text-2xl">cloud</span>
+                        </div>
+                        <div class="floating-badge absolute -bottom-6 -left-2 bg-white/80 p-3 rounded-2xl shadow-lg backdrop-blur-md">
+                            <span class="material-symbols-outlined text-pink-500 text-2xl">favorite</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Interactive Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 content-grid">
+                
+                <!-- Left Column: Core Memories & Collage -->
+                <div class="lg:col-span-8 flex flex-col gap-8">
+                    
+                    <!-- Core Memories Grid -->
+                    <div class="flex flex-col gap-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-bold text-text-main">Core Memories</h3>
+                            <span class="text-sm text-primary font-medium">Security & Comfort</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Card 1 -->
+                            <div class="glass-card flex flex-col gap-4 rounded-2xl p-6">
+                                <div class="w-12 h-12 rounded-xl bg-blue-50/50 flex items-center justify-center text-primary">
+                                    <span class="material-symbols-outlined text-[28px]">sentiment_satisfied</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-text-main">Soft Embraces</h4>
+                                    <p class="text-sm text-text-muted mt-1">The gentle reassurance of being held.</p>
+                                </div>
+                            </div>
+                            <!-- Card 2 -->
+                            <div class="glass-card flex flex-col gap-4 rounded-2xl p-6 bg-white/60">
+                                <div class="w-12 h-12 rounded-xl bg-blue-50/50 flex items-center justify-center text-primary">
+                                    <span class="material-symbols-outlined text-[28px]">volunteer_activism</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-text-main">Safe Haven</h4>
+                                    <p class="text-sm text-text-muted mt-1">A judgment-free zone to be yourself.</p>
+                                </div>
+                            </div>
+                            <!-- Card 3 -->
+                            <div class="glass-card flex flex-col gap-4 rounded-2xl p-6">
+                                <div class="w-12 h-12 rounded-xl bg-blue-50/50 flex items-center justify-center text-primary">
+                                    <span class="material-symbols-outlined text-[28px]">cloud_queue</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-text-main">Support</h4>
+                                    <p class="text-sm text-text-muted mt-1">The promise of stability in chaos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Collage -->
+                    <div class="w-full glass-panel rounded-3xl p-4 md:p-6 content-card">
+                        <div class="w-full gap-4 overflow-hidden rounded-xl grid grid-cols-1 md:grid-cols-3 h-[350px]">
+                            <div class="collage-item relative w-full h-full bg-slate-100 rounded-xl overflow-hidden group row-span-2 md:col-span-2">
+                                <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
+                                <img alt="Cloud Texture" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwVzZjKSZblPHOzbT1R0uqDlamE_khhbC2-ZiZlyqiqveDl1tIcMSR6Lf9vN1jaOo51P3uWiiMJdMcvqyus3zXm9vxxkkPUJnwgUofbXJNg4IKmQbInNgSRezLhxrijt6D2BYNekfyn22GTRiOM0doAj1iYRvNJb2RXuoCtaXvzK_CIOk3v8H7bfEzYyo0-8zPpPR03cYnr6E70Jz3JbX92ItBLlGmZxbhA6ejSj6hgzRw5SO68X7D_QQnApGIx7jpbjSbmpbr1iU"/>
+                                <div class="absolute bottom-4 left-4 z-20">
+                                    <span class="bg-white/80 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-text-main shadow-sm">Texture of Comfort</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-4 h-full">
+                                <div class="collage-item relative flex-1 bg-slate-100 rounded-xl overflow-hidden group">
+                                    <img alt="Couple Holding Hands" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3DUqOiqVH2bh66gBLdOxvMoseowsjJ3qB_FoZUV9lBvHRoK6qV_G86Gf7LwvumFkhf-iYsWJbLQ1MP_qPHrS_mch6H0KmJdF0eH76Gmgr0C7SIBv8vvXoTvml9IhHvwNGcCBEVwp7oFqbqM8p5d3JOjQcl6nwpjJZP92Tm_nHPsiOWMVkEfssflNhgyz9WqyeHwkd0M71_RpVK0Dq5VBVQgYpB_DOTN7QLLk2GVfTUdw4qscxHP4wAVDWT2JnA_r2aDHgSG80Lfs"/>
+                                </div>
+                                <div class="relative flex-1 bg-blue-50/50 rounded-xl overflow-hidden flex items-center justify-center border border-blue-100/50">
+                                    <div class="text-center p-4">
+                                        <span class="material-symbols-outlined text-3xl text-primary mb-1">auto_awesome</span>
+                                        <p class="text-xs font-bold text-primary/80">42 Warm Moments</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Widget -->
+                <div class="lg:col-span-4 flex flex-col gap-6">
+                    <!-- Send Hug Widget -->
+                    <div class="bg-white/60 backdrop-blur-md rounded-3xl p-6 border border-white/60 shadow-xl relative overflow-hidden content-card h-full">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50/50 rounded-bl-full -mr-8 -mt-8"></div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="p-2.5 bg-blue-50/80 rounded-xl text-primary border border-blue-100/50">
+                                    <span class="material-symbols-outlined">favorite</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-text-main">Send a Hug</h3>
+                                    <p class="text-[10px] text-text-muted">Distance means nothing</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 flex flex-col gap-4">
+                                <label class="text-xs font-bold text-text-muted uppercase tracking-wider">To Whom?</label>
+                                <input id="hug-input" type="text" class="w-full bg-slate-50/50 border border-border-light rounded-xl p-4 text-sm text-text-main placeholder-text-muted/50 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="Partner's Name...">
+                                
+                                <label class="text-xs font-bold text-text-muted uppercase tracking-wider mt-2">Hug Type</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button onclick="selectHug(this)" class="hug-btn p-3 rounded-xl border border-border-light hover:bg-blue-50 hover:border-blue-200 text-sm font-medium transition-all text-center active-hug bg-blue-50 border-blue-200 text-primary">Bear Hug 🐻</button>
+                                    <button onclick="selectHug(this)" class="hug-btn p-3 rounded-xl border border-border-light hover:bg-blue-50 hover:border-blue-200 text-sm font-medium transition-all text-center text-text-muted">Tight Squeeze 🤗</button>
+                                    <button onclick="selectHug(this)" class="hug-btn p-3 rounded-xl border border-border-light hover:bg-blue-50 hover:border-blue-200 text-sm font-medium transition-all text-center text-text-muted">Warm Fuzzy ☁️</button>
+                                    <button onclick="selectHug(this)" class="hug-btn p-3 rounded-xl border border-border-light hover:bg-blue-50 hover:border-blue-200 text-sm font-medium transition-all text-center text-text-muted">Cuddle 🥰</button>
+                                </div>
+
+                                <div class="mt-auto pt-4">
+                                    <button onclick="sendHug(event)" class="send-btn w-full py-4 bg-primary hover:bg-primary-hover text-white rounded-xl text-sm font-bold transition-all uppercase tracking-wide shadow-lg shadow-blue-400/20 flex items-center justify-center gap-2 group">
+                                        <span>Send Warmth</span>
+                                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform text-sm">send</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Next Entry Card -->
+                    <a href="#" class="bg-white/60 backdrop-blur-md p-4 rounded-2xl border border-white/60 group hover:border-primary/30 transition-all flex items-center gap-4 content-card glass-card">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50/80 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">handshake</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-text-main text-sm font-bold">Up Next: Promise Day</p>
+                            <p class="text-text-muted text-xs">Tomorrow, Feb 11</p>
+                        </div>
+                        <span class="material-symbols-outlined text-text-muted group-hover:translate-x-1 transition-transform">chevron_right</span>
+                    </a>
+                </div>
+            </div>
+            
+            <footer class="mt-12 border-t border-border-light pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-text-muted text-sm">© 2026 The Chronicle.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-text-muted hover:text-primary transition-colors"><span class="material-symbols-outlined">share</span></a>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <script>
+        // --- Interactions ---
+
+        // Toast Notification
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const colors = 'bg-white border-blue-100 text-text-main shadow-xl';
+            const iconColor = 'text-primary';
+            const icon = 'check_circle';
+            
+            toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border ${colors} transform translate-y-10 opacity-0 transition-all duration-300 min-w-[200px] z-[100] backdrop-blur-md`;
+            toast.innerHTML = `
+                <span class="material-symbols-outlined ${iconColor} text-sm">${icon}</span>
+                <span class="text-xs font-bold tracking-wide">${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Trigger Confetti
+        function triggerConfetti(e) {
+            const colors = ['#2b8cee', '#f472b6', '#ffffff', '#e0f2ff'];
+            const rect = e.target.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 40; i++) {
+                const el = document.createElement('div');
+                el.classList.add('fixed', 'w-2', 'h-2', 'rounded-full', 'pointer-events-none', 'z-[100]');
+                el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                el.style.left = centerX + 'px';
+                el.style.top = centerY + 'px';
+                document.body.appendChild(el);
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 50 + Math.random() * 150;
+                
+                gsap.to(el, {
+                    x: Math.cos(angle) * velocity,
+                    y: Math.sin(angle) * velocity + 100, // gravity
+                    opacity: 0,
+                    scale: 0,
+                    duration: 1 + Math.random(),
+                    ease: "power2.out",
+                    onComplete: () => el.remove()
+                });
+            }
+        }
+
+        // Hug Selection
+        function selectHug(btn) {
+            document.querySelectorAll('.hug-btn').forEach(b => {
+                b.classList.remove('active-hug', 'bg-blue-50', 'border-blue-200', 'text-primary');
+                b.classList.add('text-text-muted');
+            });
+            btn.classList.remove('text-text-muted');
+            btn.classList.add('active-hug', 'bg-blue-50', 'border-blue-200', 'text-primary');
+            
+            // GSAP pop
+            gsap.from(btn, { scale: 0.9, duration: 0.2, ease: "back.out(2)" });
+        }
+
+        // Send Hug Logic
+        function sendHug(e) {
+            const input = document.getElementById('hug-input');
+            const name = input.value.trim();
+
+            if(!name) {
+                gsap.from(input, { x: 10, duration: 0.1, repeat: 5, yoyo: true });
+                showToast("Who are we hugging today?", "error");
+                input.focus();
+                return;
+            }
+            
+            // Trigger Confetti
+            if(e) triggerConfetti(e);
+
+            const btn = document.querySelector('.send-btn');
+            const originalHTML = btn.innerHTML;
+            
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">autorenew</span>';
+            
+            setTimeout(() => {
+                showToast(`Big hug sent to ${name}! 🧸`);
+                btn.innerHTML = originalHTML;
+                input.value = "";
+                
+                // Success confetti bounce on container
+                gsap.to(".content-card", { y: -5, duration: 0.2, yoyo: true, repeat: 1, stagger: 0.1 });
+                
+            }, 1000);
+        }
+
+        // Countdown Logic
+        function startCountdown() {
+            function update() {
+                const now = new Date();
+                const target = new Date('2026-02-11T00:00:00'); // Promise Day
+                let diff = target - now;
+                if (diff < 0) diff = 100000000 + (diff % 86400000); 
+
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('cd-h').textContent = h.toString().padStart(2, '0');
+                document.getElementById('cd-m').textContent = m.toString().padStart(2, '0');
+                document.getElementById('cd-s').textContent = s.toString().padStart(2, '0');
+            }
+            setInterval(update, 1000);
+            update();
+        }
+
+        // GSAP Initialization
+        window.addEventListener('load', () => {
+            gsap.registerPlugin();
+            const tl = gsap.timeline();
+
+            startCountdown();
+
+            // 1. Reveal Body
+            tl.to("#app-body", { opacity: 1, duration: 0.8 });
+
+            // 2. Sidebar Entrance
+            tl.from(".sidebar-panel", { x: -50, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.4")
+              .from(".sidebar-header", { y: -20, opacity: 0, duration: 0.6 }, "-=0.6")
+              .from(".nav-item", { x: -20, opacity: 0, stagger: 0.05, duration: 0.5 }, "-=0.4");
+
+            // 3. Main Content Entrance
+            tl.from(".hero-text", { y: 30, opacity: 0, duration: 0.8, ease: "back.out(1.5)" }, "-=0.5")
+              .from(".hero-widget", { scale: 0.9, opacity: 0, duration: 0.8 }, "-=0.6");
+            
+            // 4. Stagger Core Memories & Cards
+            tl.from(".glass-card", { 
+                y: 30, 
+                opacity: 0, 
+                stagger: 0.1, 
+                duration: 0.6, 
+                ease: "power2.out" 
+            }, "-=0.4");
+
+            // 5. Floating Teddy Animation
+            gsap.to(".teddy-img", {
+                y: -15,
+                rotation: 2,
+                duration: 3,
+                yoyo: true,
+                repeat: -1,
+                ease: "sine.inOut"
+            });
+            
+            // 6. Floating Badges Animation
+            gsap.to(".floating-badge", {
+                y: -10,
+                duration: 2.5,
+                yoyo: true,
+                repeat: -1,
+                stagger: 1,
+                ease: "sine.inOut"
+            });
+
+            // 7. Pulse Ring Animation
+            gsap.to(".pulse-ring", {
+                scale: 1.5,
+                opacity: 0,
+                duration: 2,
+                repeat: -1,
+                ease: "power1.out",
+                stagger: 0.5
+            });
+
+            // 8. Magnetic Buttons Logic
+            document.querySelectorAll('.magnetic-btn, .hero-btn').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    gsap.to(btn, {
+                        x: x * 0.2, // movement intensity
+                        y: y * 0.2,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, { x: 0, y: 0, duration: 0.3, ease: "elastic.out(1, 0.5)" });
+                });
+            });
+
+            // 9. Interactive Hover Effects (Lift)
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(card, { y: -6, scale: 1.02, duration: 0.3, ease: "power2.out" });
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, { y: 0, scale: 1, duration: 0.3, ease: "power2.out" });
+                });
+            });
+            
+            // 10. Image Collage Parallax Hover
+            document.querySelectorAll('.collage-item').forEach(item => {
+                 item.addEventListener('mouseenter', () => {
+                     gsap.to(item.querySelector('img'), { scale: 1.1, duration: 0.5 });
+                 });
+                 item.addEventListener('mouseleave', () => {
+                     gsap.to(item.querySelector('img'), { scale: 1, duration: 0.5 });
+                 });
+            });
+
+            // 11. Ambient Background Parallax
+            document.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 30;
+                const y = (e.clientY / window.innerHeight - 0.5) * 30;
+                
+                gsap.to(".bg-blob", {
+                    x: x,
+                    y: y,
+                    duration: 1.5,
+                    ease: "power2.out"
+                });
+            });
+
+            // 12. Text Reveal
+            const text = document.querySelector('.hero-desc');
+            if(text) {
+                // Simple opacity fade for the paragraph
+                gsap.from(text, { opacity: 0, y: 10, duration: 1, delay: 0.5, ease: "power2.out" });
+            }
+        });
+    </script>
+</body>
+</html>
