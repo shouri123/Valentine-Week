@@ -6,6 +6,7 @@
     <title>Chocolate Day Experience</title>
     <!-- Date Lock Protection - Redirect if day is locked -->
     <script src="date-lock.js"></script>
+    <script src="mobile-ui.js"></script>
     <script>checkPageAccess(9);</script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -74,11 +75,14 @@
 </head>
 <body class="bg-background-light dark:bg-cocoa-dark text-slate-900 dark:text-cream min-h-screen flex flex-col md:flex-row overflow-hidden opacity-0" id="app-body">
     
+    <!-- Mobile Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
+    
     <!-- Toast Container -->
     <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- Side Navigation -->
-    <aside class="w-full md:w-[320px] flex-shrink-0 bg-[#2a1b12] dark:bg-[#221811] flex flex-col border-r border-[#3e2723] h-screen overflow-y-auto relative z-20 sidebar-panel">
+    <aside id="main-sidebar" class="fixed inset-y-0 left-0 w-[280px] md:static md:w-[320px] flex-shrink-0 bg-[#2a1b12] dark:bg-[#221811] flex flex-col border-r border-[#3e2723] h-full md:h-screen overflow-y-auto z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-2xl md:shadow-none sidebar-panel">
         <div class="p-6 pb-2">
             <div class="flex gap-3 items-center mb-8 sidebar-header">
                 <div class="bg-center bg-no-repeat bg-cover rounded-full size-12 shadow-lg border-2 border-primary" data-alt="Abstract chocolate swirl avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC_cKnasXi3_NtICFck5vI3BP_NkgFB_l7oyX6DIemnCNuIqhxN-rxpx65NNrpNo4YoMCg9qX1jVmRdotF891HYHz3npwklnjQPkiBjv3aJeaJfoZ3XEBDQsB3z7s-RAQ05qcHXwvI-hb-K1wY5gznTwPVQNB4w4ENTD9vejih7jgpAzaWB6nnT99SQcNnwYK_pH_okAplmlqA6f2fUb0Z0h_ln2BirMhdgqyn9h4CZH1n8OXNCxWxJ2jXPMXCG65zfhwCe72LWP68");'></div>
@@ -165,6 +169,16 @@
 
     <!-- Main Content Area -->
     <main class="flex-1 relative h-screen overflow-y-auto bg-cocoa-dark scroll-smooth main-content">
+        <!-- Mobile Header -->
+        <div class="md:hidden flex items-center justify-between p-4 bg-[#2a1b12]/80 backdrop-blur-md sticky top-0 z-30 border-b border-[#3e2723]">
+            <div class="flex items-center gap-2">
+                <span class="text-xl">🍫</span>
+                <span class="font-bold text-cream tracking-wide">Chocolate Day</span>
+            </div>
+            <button id="mobile-menu-btn" class="text-[#8d6e63] hover:text-primary transition-colors p-2 rounded-lg hover:bg-white/5">
+                <span class="material-symbols-outlined text-2xl">menu</span>
+            </button>
+        </div>
         <!-- Abstract Background Pattern -->
         <div class="absolute inset-0 pointer-events-none overflow-hidden">
             <div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[#3e2723] blur-[120px] opacity-30 mix-blend-screen"></div>

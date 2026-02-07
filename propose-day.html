@@ -6,6 +6,7 @@
     <title>Propose Day Experience - Chronicle 2026</title>
     <!-- Date Lock Protection - Redirect if day is locked -->
     <script src="date-lock.js"></script>
+    <script src="mobile-ui.js"></script>
     <script>checkPageAccess(8);</script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -93,10 +94,10 @@
     </div>
 
     <!-- Mobile Overlay (Backdrop) -->
-    <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden"></div>
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
 
     <!-- Sidebar Navigation -->
-    <aside id="main-sidebar" class="w-full md:w-[320px] flex-shrink-0 bg-sidebar-bg backdrop-blur-xl flex flex-col border-r border-border-dark h-screen overflow-y-auto relative z-20 sidebar-panel hidden md:flex fixed md:static inset-y-0 left-0">
+    <aside id="main-sidebar" class="fixed inset-y-0 left-0 w-[280px] md:static md:w-[320px] flex-shrink-0 bg-sidebar-bg backdrop-blur-xl flex flex-col border-r border-border-dark h-full md:h-screen overflow-y-auto z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-2xl md:shadow-none sidebar-panel">
         <div class="p-6">
             <!-- Header -->
             <div class="flex gap-4 items-center mb-8 sidebar-header">

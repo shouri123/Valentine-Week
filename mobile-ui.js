@@ -1,0 +1,60 @@
+/**
+ * mobile-ui.js
+ * Handles mobile sidebar toggling and overlay interactions.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const sidebar = document.getElementById('main-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+
+    if (!mobileMenuBtn || !sidebar || !overlay) {
+        console.warn('Mobile UI elements not found');
+        return;
+    }
+
+    function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+        // Force reflow
+        void overlay.offsetWidth;
+        overlay.classList.remove('opacity-0');
+        overlay.classList.add('opacity-100');
+    }
+
+    function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.remove('opacity-100');
+        overlay.classList.add('opacity-0');
+        
+        setTimeout(() => {
+            overlay.classList.add('hidden');
+        }, 300); // Match CSS transition duration
+    }
+
+    function toggleSidebar() {
+        const isClosed = sidebar.classList.contains('-translate-x-full');
+        if (isClosed) {
+            openSidebar();
+        } else {
+            closeSidebar();
+        }
+    }
+
+    // Event Listeners
+    mobileMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSidebar();
+    });
+
+    overlay.addEventListener('click', closeSidebar);
+
+    // Close sidebar on window resize if moving to desktop
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) {
+            if (!sidebar.classList.contains('-translate-x-full')) {
+                closeSidebar();
+            }
+        }
+    });
+});

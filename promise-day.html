@@ -7,6 +7,7 @@
         <title>Promise Day Experience - Chronicle 2026</title>
         <!-- Date Lock Protection - Redirect if day is locked -->
         <script src="date-lock.js"></script>
+        <script src="mobile-ui.js"></script>
         <script>checkPageAccess(11);</script>
         <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -109,6 +110,9 @@
             class="fixed bottom-6 right-6 z-[100] flex flex-col gap-2 pointer-events-none"
         ></div>
         <div class="flex h-screen w-full relative">
+            <!-- Mobile Overlay -->
+            <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
+            
             <!-- Floating Background Particles (Abstract representation of leaves/infinity) -->
             <div
                 class="absolute inset-0 overflow-hidden pointer-events-none z-0"
@@ -139,7 +143,7 @@
                 ></div>
             </div>
             <!-- Sidebar Navigation -->
-            <aside class="w-full md:w-[320px] flex-shrink-0 bg-sidebar-bg backdrop-blur-xl flex flex-col border-r border-border-dark h-full overflow-y-auto relative z-20 sidebar-panel hidden md:flex">
+            <aside id="main-sidebar" class="fixed inset-y-0 left-0 w-[280px] md:static md:w-[320px] flex-shrink-0 bg-sidebar-bg backdrop-blur-xl flex flex-col border-r border-border-dark h-full md:h-screen overflow-y-auto z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-2xl md:shadow-none sidebar-panel">
                 <div class="p-6">
                     <!-- Header -->
                     <div class="flex gap-4 items-center mb-8 sidebar-header">
@@ -235,14 +239,13 @@
             <!-- Main Content Area -->
             <main class="flex-1 h-full overflow-y-auto z-10 relative">
                 <!-- Mobile Header -->
-                <div
-                    class="md:hidden flex items-center justify-between p-4 glass-panel sticky top-0 z-50"
-                >
-                    <span class="font-bold text-slate-900 dark:text-white"
-                        >Promise Day</span
-                    >
-                    <button class="text-slate-600 dark:text-slate-300">
-                        <span class="material-symbols-outlined">menu</span>
+                <div class="md:hidden flex items-center justify-between p-4 glass-panel sticky top-0 z-50 border-b border-border-dark">
+                    <div class="flex items-center gap-2">
+                         <span class="text-xl">🤝</span>
+                        <span class="font-bold text-slate-900 dark:text-white">Promise Day</span>
+                    </div>
+                    <button id="mobile-menu-btn" class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors p-2 rounded-lg hover:bg-white/5">
+                        <span class="material-symbols-outlined text-2xl">menu</span>
                     </button>
                 </div>
                 <div
