@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
@@ -19,8 +19,8 @@
                         "gold": "#D4AF37",
                         "gold-light": "#FEDC56",
                         "gold-dark": "#996515",
-                        "background-light": "#f8f5f5",
-                        "background-dark": "#1a0a0a",
+                        "background-dark": "#120606",
+                        "card-bg": "transparent"
                     },
                     fontFamily: {
                         "display": ["Manrope", "sans-serif"],
@@ -37,45 +37,41 @@
         ::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.2); border-radius: 10px; }
 
         .glass-panel {
-            background: rgba(35, 16, 16, 0.4);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(212, 175, 55, 0.1);
         }
 
-        .text-gradient-gold {
-            background: linear-gradient(to bottom, #FEDC56, #D4AF37, #996515);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); opacity: 0.2; }
-            50% { transform: translateY(-20px) rotate(10deg); opacity: 0.5; }
-            100% { transform: translateY(0px) rotate(0deg); opacity: 0.2; }
-        }
-        .animate-float { animation: float 6s ease-in-out infinite; }
-
         .bg-stardust {
-            background-color: #1a0a0a;
+            background-color: #120606;
             background-image: 
-                radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 2px),
-                radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px);
-            background-size: 550px 550px, 350px 350px;
-            background-position: 0 0, 40px 60px;
-            animation: moveStars 100s linear infinite;
+                radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.05) 1px, transparent 2px);
+            background-size: 400px 400px, 250px 250px;
         }
 
-        @keyframes moveStars {
-            from { background-position: 0 0, 40px 60px; }
-            to { background-position: 550px 550px, 390px 410px; }
+        .node-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
 
-        .sidebar-item-active {
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        .node-finale-glow {
+            box-shadow: 0 0 25px rgba(218, 11, 11, 0.6);
+            border: 2px solid #D4AF37;
+        }
+
+        /* Sidebar Active State Styles */
+        .sidebar-btn-active {
+            background: #ffffff !important;
+            color: #1a0a0a !important;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .sidebar-btn-active .icon-container {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
         }
 
         .modal-enter { animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -89,105 +85,88 @@
     
     <div class="relative h-screen w-full flex bg-stardust overflow-hidden">
         <!-- Ambient Glow -->
-        <div class="absolute inset-0 bg-radial-gradient from-primary/10 via-transparent to-transparent pointer-events-none"></div>
+        <div class="absolute inset-0 bg-radial-gradient from-primary/5 via-transparent to-transparent pointer-events-none"></div>
 
         <!-- Sidebar -->
         <aside class="w-80 h-full flex flex-col border-r border-white/5 glass-panel hidden lg:flex z-50 overflow-hidden">
             <!-- Sidebar Header -->
-            <div class="p-8 pb-4 flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-2xl shadow-inner">
-                    💖
+            <div class="p-8 pb-10 flex items-center gap-4">
+                <div id="sidebar-profile-icon" class="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center text-3xl shadow-inner border border-white/10 transition-all duration-500">
+                    🧸
                 </div>
                 <div>
                     <h2 class="text-xl font-extrabold tracking-tight">The Chronicle</h2>
-                    <p class="text-[10px] text-primary font-bold uppercase tracking-[0.2em]">Valentine 2026</p>
+                    <p class="text-[10px] text-gold font-bold uppercase tracking-[0.1em]">Valentine 2026</p>
                 </div>
             </div>
 
             <!-- Navigation List -->
-            <div class="flex-1 overflow-y-auto px-4 py-4 space-y-1">
+            <div class="flex-1 px-6 space-y-2 overflow-y-auto">
                 <nav id="sidebar-nav" class="space-y-1">
-                    <!-- Rose Day -->
-                    <button onclick="setActiveDay(0)" class="sidebar-btn w-full flex items-center gap-5 px-6 py-4 rounded-2xl transition-all hover:bg-white/5 text-white/40 group" data-index="0">
-                        <span class="material-symbols-outlined text-2xl group-hover:text-gold transition-colors">local_florist</span>
+                    <button onclick="setActiveDay(0)" class="sidebar-btn w-full flex items-center gap-5 px-4 py-4 text-white/30 hover:text-white transition-all group">
+                        <span class="material-symbols-outlined text-2xl group-hover:text-gold">local_florist</span>
                         <span class="text-sm font-bold tracking-wide">Rose Day</span>
                     </button>
-                    <!-- Propose Day -->
-                    <button onclick="setActiveDay(1)" class="sidebar-btn w-full flex items-center gap-5 px-6 py-4 rounded-2xl transition-all hover:bg-white/5 text-white/40 group" data-index="1">
-                        <span class="material-symbols-outlined text-2xl group-hover:text-gold transition-colors">ring_volume</span>
+                    <button onclick="setActiveDay(1)" class="sidebar-btn w-full flex items-center gap-5 px-4 py-4 text-white/30 hover:text-white transition-all group">
+                        <span class="material-symbols-outlined text-2xl group-hover:text-gold">ring_volume</span>
                         <span class="text-sm font-bold tracking-wide">Propose Day</span>
                     </button>
-                    <!-- Chocolate Day -->
-                    <button onclick="setActiveDay(2)" class="sidebar-btn w-full flex items-center gap-5 px-6 py-4 rounded-2xl transition-all hover:bg-white/5 text-white/40 group" data-index="2">
-                        <span class="material-symbols-outlined text-2xl group-hover:text-gold transition-colors">nutrition</span>
+                    <button onclick="setActiveDay(2)" class="sidebar-btn w-full flex items-center gap-5 px-4 py-4 text-white/30 hover:text-white transition-all group">
+                        <span class="material-symbols-outlined text-2xl group-hover:text-gold">nutrition</span>
                         <span class="text-sm font-bold tracking-wide">Chocolate Day</span>
                     </button>
-                    <!-- Teddy Day -->
-                    <button onclick="setActiveDay(3)" class="sidebar-btn w-full flex flex-col px-6 py-4 rounded-2xl transition-all text-white/40 group" data-index="3">
-                        <div class="flex items-center gap-5">
-                            <span class="text-2xl group-hover:scale-110 transition-transform">🧸</span>
-                            <div class="text-left">
-                                <span class="text-sm font-bold tracking-wide block">Teddy Day</span>
-                                <span class="text-[9px] text-gold/60 font-bold uppercase tracking-widest entry-label hidden">Feb 10 • Entry 04</span>
-                            </div>
-                        </div>
+                    <button onclick="setActiveDay(3)" class="sidebar-btn w-full flex items-center gap-5 px-4 py-4 text-white/30 hover:text-white transition-all group">
+                        <span class="text-2xl group-hover:scale-110 transition-transform">🧸</span>
+                        <span class="text-sm font-bold tracking-wide">Teddy Day</span>
                     </button>
-                    <!-- Promise Day -->
-                    <button onclick="setActiveDay(4)" class="sidebar-btn w-full flex items-center gap-5 px-6 py-4 rounded-2xl transition-all hover:bg-white/5 text-white/40 group" data-index="4">
-                        <span class="material-symbols-outlined text-2xl group-hover:text-gold transition-colors">handshake</span>
+                    <button onclick="setActiveDay(4)" class="sidebar-btn w-full flex items-center gap-5 px-4 py-4 text-white/30 hover:text-white transition-all group">
+                        <span class="material-symbols-outlined text-2xl group-hover:text-gold">handshake</span>
                         <span class="text-sm font-bold tracking-wide">Promise Day</span>
                     </button>
-                    <!-- Hug Day -->
-                    <button onclick="setActiveDay(5)" class="sidebar-btn w-full flex items-center gap-5 px-6 py-4 rounded-2xl transition-all hover:bg-white/5 text-white/40 group" data-index="5">
-                        <span class="material-symbols-outlined text-2xl group-hover:text-gold transition-colors">sentiment_satisfied</span>
+                    <button onclick="setActiveDay(5)" class="sidebar-btn w-full flex items-center gap-5 px-4 py-4 text-white/30 hover:text-white transition-all group">
+                        <span class="material-symbols-outlined text-2xl group-hover:text-gold">sentiment_satisfied</span>
                         <span class="text-sm font-bold tracking-wide">Hug Day</span>
                     </button>
-                    <!-- Kiss Day -->
-                    <button onclick="setActiveDay(6)" class="sidebar-btn w-full flex items-center gap-5 px-6 py-4 rounded-2xl transition-all hover:bg-white/5 text-white/40 group" data-index="6">
-                        <span class="material-symbols-outlined text-2xl group-hover:text-gold transition-colors">favorite</span>
+                    <button onclick="setActiveDay(6)" class="sidebar-btn w-full flex items-center gap-5 px-4 py-4 text-white/30 hover:text-white transition-all group">
+                        <span class="material-symbols-outlined text-2xl group-hover:text-gold">favorite</span>
                         <span class="text-sm font-bold tracking-wide">Kiss Day</span>
                     </button>
-                    <!-- Valentine's Day -->
-                    <button onclick="setActiveDay(7)" class="sidebar-btn w-full flex items-center gap-5 px-6 py-4 rounded-2xl transition-all hover:bg-white/5 text-white/40 group" data-index="7">
-                        <span class="material-symbols-outlined text-2xl group-hover:text-gold transition-colors">auto_awesome</span>
+                    <button onclick="setActiveDay(7)" class="sidebar-btn w-full flex items-center gap-5 px-4 py-4 text-white/30 hover:text-white transition-all group">
+                        <span class="material-symbols-outlined text-2xl group-hover:text-gold">auto_awesome</span>
                         <span class="text-sm font-bold tracking-wide">Valentine's Day</span>
                     </button>
                 </nav>
             </div>
 
             <!-- Sidebar Footer -->
-            <div class="p-8 pt-4 space-y-6">
-                <!-- Countdown -->
-                <div class="space-y-3">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] text-white/40 font-bold uppercase tracking-[0.2em]">Next Chapter In</span>
-                        <span class="material-symbols-outlined text-primary text-sm">schedule</span>
+            <div class="p-8 pt-4 space-y-8">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-[10px] text-white/40 font-bold uppercase tracking-[0.15em]">Next Chapter In</span>
+                        <span class="material-symbols-outlined text-gold/60 text-sm animate-pulse">timer</span>
                     </div>
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
-                            <span class="text-lg font-bold block" id="cd-hrs">06</span>
-                            <span class="text-[8px] text-primary font-bold uppercase">Hrs</span>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="bg-white/[0.03] rounded-2xl p-4 text-center border border-white/5 shadow-inner">
+                            <span class="text-xl font-black block text-white" id="cd-hrs">06</span>
+                            <span class="text-[8px] text-gold font-bold uppercase">Hrs</span>
                         </div>
-                        <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
-                            <span class="text-lg font-bold block" id="cd-min">42</span>
-                            <span class="text-[8px] text-primary font-bold uppercase">Min</span>
+                        <div class="bg-white/[0.03] rounded-2xl p-4 text-center border border-white/5 shadow-inner">
+                            <span class="text-xl font-black block text-white" id="cd-min">42</span>
+                            <span class="text-[8px] text-gold font-bold uppercase">Min</span>
                         </div>
-                        <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
-                            <span class="text-lg font-bold block" id="cd-sec">52</span>
-                            <span class="text-[8px] text-primary font-bold uppercase">Sec</span>
+                        <div class="bg-white/[0.03] rounded-2xl p-4 text-center border border-white/5 shadow-inner">
+                            <span class="text-xl font-black block text-white" id="cd-sec">52</span>
+                            <span class="text-[8px] text-gold font-bold uppercase">Sec</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Bottom Actions -->
-                <div class="flex items-center justify-between pt-4 border-t border-white/5">
-                    <button class="flex items-center gap-2 text-white/40 hover:text-white transition-colors text-sm font-bold">
-                        <span class="material-symbols-outlined text-lg">settings</span>
-                        Prefs
+                <div class="flex items-center justify-between pt-6 border-t border-white/10">
+                    <button class="flex items-center gap-2 text-white/30 hover:text-white transition-all text-[10px] font-black uppercase tracking-widest">
+                        <span class="material-symbols-outlined text-lg">settings</span> Prefs
                     </button>
-                    <button onclick="window.location.reload()" class="flex items-center gap-2 text-white/40 hover:text-white transition-colors text-sm font-bold">
-                        <span class="material-symbols-outlined text-lg">logout</span>
-                        Exit
+                    <button onclick="window.location.reload()" class="flex items-center gap-2 text-white/30 hover:text-white transition-all text-[10px] font-black uppercase tracking-widest">
+                        <span class="material-symbols-outlined text-lg">logout</span> Exit
                     </button>
                 </div>
             </div>
@@ -195,88 +174,131 @@
 
         <!-- Main Workspace -->
         <main class="flex-1 flex flex-col relative overflow-y-auto">
-            
-            <!-- Mobile Header -->
-            <div class="lg:hidden p-6 flex justify-between items-center glass-panel border-b border-white/5 sticky top-0 z-50">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm">💖</div>
-                    <h1 class="text-white font-serif text-lg">The Chronicle</h1>
-                </div>
-                <div class="w-8 h-8 rounded-full border border-gold overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover">
-                </div>
-            </div>
-
-            <div class="flex-1 max-w-5xl mx-auto w-full p-6 lg:p-12 flex flex-col gap-8">
-                <!-- Hero Section -->
-                <header class="text-center space-y-2 py-4">
-                    <h2 class="font-script text-6xl md:text-8xl text-white drop-shadow-2xl">The Symphony of Us</h2>
-                    <p class="text-gold-light/60 text-sm md:text-base tracking-[0.3em] uppercase font-medium">Eternal Melodies • Final Chapter</p>
+            <div class="flex-1 max-w-6xl mx-auto w-full p-6 lg:p-12 flex flex-col gap-10">
+                <!-- Header -->
+                <header class="text-center pt-4">
+                    <h2 class="font-script text-7xl md:text-9xl text-white drop-shadow-2xl opacity-90">The Symphony of Us</h2>
+                    <p class="text-gold/60 text-xs md:text-sm tracking-[0.4em] uppercase font-bold mt-2">Eternal Melodies • Final Chapter</p>
                 </header>
 
-                <!-- Interactive Story Card -->
-                <div class="glass-panel rounded-3xl overflow-hidden relative group">
-                    <div class="absolute inset-0 bg-gradient-to-br from-gold/10 to-transparent pointer-events-none"></div>
-                    
-                    <div class="p-6 md:p-10 space-y-8 relative z-10">
-                        <!-- Content Display -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pt-6">
-                            <div class="space-y-6 order-2 md:order-1" id="content-text-block">
-                                <div class="flex justify-between items-center">
-                                    <h3 class="text-2xl font-serif text-white" id="active-day-title">Rose Day Memories</h3>
-                                    <span class="text-[10px] bg-primary/20 text-primary border border-primary/30 px-3 py-1 rounded-full font-bold uppercase tracking-widest" id="day-badge">Feb 7</span>
+                <!-- Journey Card -->
+                <div class="glass-panel border border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden group/card">
+                    <div class="flex flex-col gap-10">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-3xl font-serif text-white/90">Our Journey</h3>
+                            <div class="px-6 py-2 rounded-full border border-gold/30 bg-gold/5">
+                                <span class="text-[10px] text-gold font-bold uppercase tracking-widest whitespace-nowrap">7 Days Complete</span>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Row -->
+                        <div id="horizontal-timeline" class="relative py-10 px-4">
+                            <div class="absolute top-[52px] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/20 to-transparent"></div>
+                            
+                            <div class="flex justify-between relative z-10">
+                                <div onclick="setActiveDay(0)" class="timeline-node flex flex-col items-center gap-3 transition-all duration-500 cursor-pointer group/node">
+                                    <div class="w-4 h-4 rounded-full bg-gold/40 node-glow transition-all group-hover/node:scale-125"></div>
+                                    <span class="text-[9px] font-bold text-white/40 uppercase tracking-widest">Rose</span>
+                                    <span class="text-[8px] text-white/20">Feb 7</span>
                                 </div>
-                                <p class="text-white/70 text-lg leading-relaxed font-light italic" id="active-description">
-                                    "It all started with a single rose, a bloom that whispered of things to come. Your smile was brighter than the petals."
+                                <div onclick="setActiveDay(1)" class="timeline-node flex flex-col items-center gap-3 transition-all duration-500 cursor-pointer group/node">
+                                    <div class="w-4 h-4 rounded-full bg-gold/40 node-glow transition-all group-hover/node:scale-125"></div>
+                                    <span class="text-[9px] font-bold text-white/40 uppercase tracking-widest">Propose</span>
+                                    <span class="text-[8px] text-white/20">Feb 8</span>
+                                </div>
+                                <div onclick="setActiveDay(2)" class="timeline-node flex flex-col items-center gap-3 transition-all duration-500 cursor-pointer group/node">
+                                    <div class="w-4 h-4 rounded-full bg-gold/40 node-glow transition-all group-hover/node:scale-125"></div>
+                                    <span class="text-[9px] font-bold text-white/40 uppercase tracking-widest">Chocolate</span>
+                                    <span class="text-[8px] text-white/20">Feb 9</span>
+                                </div>
+                                <div onclick="setActiveDay(3)" class="timeline-node flex flex-col items-center gap-3 transition-all duration-500 cursor-pointer group/node">
+                                    <div class="w-4 h-4 rounded-full bg-gold/40 node-glow transition-all group-hover/node:scale-125"></div>
+                                    <span class="text-[9px] font-bold text-white/40 uppercase tracking-widest">Teddy</span>
+                                    <span class="text-[8px] text-white/20">Feb 10</span>
+                                </div>
+                                <div onclick="setActiveDay(4)" class="timeline-node flex flex-col items-center gap-3 transition-all duration-500 cursor-pointer group/node">
+                                    <div class="w-4 h-4 rounded-full bg-gold/40 node-glow transition-all group-hover/node:scale-125"></div>
+                                    <span class="text-[9px] font-bold text-white/40 uppercase tracking-widest">Promise</span>
+                                    <span class="text-[8px] text-white/20">Feb 11</span>
+                                </div>
+                                <div onclick="setActiveDay(5)" class="timeline-node flex flex-col items-center gap-3 transition-all duration-500 cursor-pointer group/node">
+                                    <div class="w-4 h-4 rounded-full bg-gold/40 node-glow transition-all group-hover/node:scale-125"></div>
+                                    <span class="text-[9px] font-bold text-white/40 uppercase tracking-widest">Hug</span>
+                                    <span class="text-[8px] text-white/20">Feb 12</span>
+                                </div>
+                                <div onclick="setActiveDay(6)" class="timeline-node flex flex-col items-center gap-3 transition-all duration-500 cursor-pointer group/node">
+                                    <div class="w-4 h-4 rounded-full bg-gold/40 node-glow transition-all group-hover/node:scale-125"></div>
+                                    <span class="text-[9px] font-bold text-white/40 uppercase tracking-widest">Kiss</span>
+                                    <span class="text-[8px] text-white/20">Feb 13</span>
+                                </div>
+                                <div onclick="setActiveDay(7)" class="timeline-node flex flex-col items-center gap-3 -mt-2 transition-all duration-500 cursor-pointer group/node">
+                                    <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center transition-all group-hover/node:scale-110">
+                                        <span class="material-symbols-outlined text-white text-xl">favorite</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gold/40 uppercase tracking-widest">Finale</span>
+                                    <span class="text-[8px] text-gold/20">Today</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Grid -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center pt-8">
+                            <div class="space-y-8">
+                                <div class="flex items-center gap-3">
+                                    <h4 id="main-content-title" class="text-3xl font-serif text-gold tracking-tight">Teddy Day</h4>
+                                    <span id="main-content-badge" class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] text-white/60 font-bold tracking-widest">FEB 10</span>
+                                </div>
+                                <p id="main-content-desc" class="text-xl md:text-2xl font-light leading-relaxed text-white/70 italic">
+                                    "From the first rose to this very moment, every beat of our hearts has led us here. This is not just a day, but a promise etched in time."
                                 </p>
-                                <div class="pt-4 flex flex-col gap-4">
-                                    <button onclick="openTimeCapsule()" class="group relative px-8 py-4 bg-gradient-to-r from-primary to-primary/80 rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20">
-                                        <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                        <div class="flex items-center justify-center gap-3">
-                                            <span class="material-symbols-outlined text-gold group-hover:rotate-12 transition-transform">lock</span>
-                                            <div class="text-left">
-                                                <p class="text-[10px] text-gold/80 font-bold uppercase tracking-widest leading-none">Digital Time Capsule</p>
-                                                <p class="text-lg font-bold font-serif">Seal a Secret Message</p>
-                                            </div>
+                                
+                                <div class="space-y-4">
+                                    <button onclick="openTimeCapsule()" class="flex items-center gap-4 bg-primary hover:bg-red-700 transition-all px-8 py-5 rounded-2xl shadow-xl shadow-primary/20 group">
+                                        <span class="material-symbols-outlined text-gold group-hover:rotate-12 transition-transform">lock_clock</span>
+                                        <div class="text-left">
+                                            <p class="text-[9px] text-gold/70 font-bold uppercase tracking-widest leading-none mb-1">Digital Time Capsule</p>
+                                            <p class="text-xl font-bold text-white">Seal Our Memories</p>
                                         </div>
                                     </button>
+                                    <div class="flex items-center gap-2 text-white/30 text-[10px] font-bold uppercase tracking-wider pl-2">
+                                        <span class="material-symbols-outlined text-sm">info</span>
+                                        This capsule will unlock on Feb 14, 2027
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group/img order-1 md:order-2">
-                                <img id="active-image" src="https://images.unsplash.com/photo-1516589174184-c685266e430c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-1000 group-hover/img:scale-110" alt="Rose">
-                                <div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent"></div>
-                                <div class="absolute bottom-4 right-4 flex items-center gap-2 glass-panel px-3 py-1.5 rounded-full">
-                                    <span class="material-symbols-outlined text-gold text-sm">location_on</span>
-                                    <span class="text-[10px] font-bold tracking-widest uppercase" id="active-location">The Beginning</span>
+                            <div class="relative group/image">
+                                <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-white/5">
+                                    <img id="main-featured-image" src="https://images.unsplash.com/photo-1559454403-b8fb88521f11?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition-all duration-700 group-hover/image:scale-105">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent"></div>
+                                    <!-- Location Tag -->
+                                    <div class="absolute bottom-6 right-6 flex items-center gap-2 bg-background-dark/40 backdrop-blur-xl border border-white/10 px-4 py-2 rounded-xl shadow-2xl">
+                                        <span class="material-symbols-outlined text-gold text-lg">location_on</span>
+                                        <span id="main-content-location" class="text-xs font-bold text-white/90 uppercase tracking-widest">Heart's Corner</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Media Player -->
-                <div class="glass-panel rounded-2xl p-4 flex flex-col md:flex-row items-center gap-4 border-white/5">
-                    <div class="relative group/player">
-                        <div class="w-16 h-16 rounded-xl overflow-hidden shadow-lg">
-                            <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover" alt="Vinyl">
+                <!-- Music Player Widget -->
+                <div class="glass-panel rounded-3xl p-6 flex items-center justify-between border border-white/5 shadow-xl">
+                    <div class="flex items-center gap-6">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold/10 to-primary/10 flex items-center justify-center relative overflow-hidden group/thumb">
+                            <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=200&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover/thumb:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-white relative z-10 text-3xl">music_note</span>
                         </div>
-                        <button id="play-btn" onclick="togglePlay()" class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover/player:opacity-100 transition-opacity rounded-xl">
-                            <span class="material-symbols-outlined text-white text-3xl" id="play-icon">play_arrow</span>
-                        </button>
-                    </div>
-                    
-                    <div class="flex-1 min-w-0 text-center md:text-left">
-                        <h4 class="font-bold text-white truncate">Grand Finale Radio</h4>
-                        <p class="text-gold/60 text-xs truncate">Now Playing: <span id="track-name">"Endless Love" - Classical Mix</span></p>
-                    </div>
-
-                    <div class="flex items-center gap-4 px-4">
-                        <div class="flex gap-1 h-6 items-end" id="visualizer">
-                            <div class="w-1 bg-gold/40 h-2 animate-bounce" style="animation-duration: 0.5s"></div>
-                            <div class="w-1 bg-gold h-4 animate-bounce" style="animation-duration: 0.8s"></div>
-                            <div class="w-1 bg-gold/60 h-3 animate-bounce" style="animation-duration: 0.6s"></div>
+                        <div>
+                            <h4 class="font-bold text-lg text-white">Grand Finale Radio</h4>
+                            <p class="text-white/40 text-xs">Now Playing: "Endless Love" - Classical Mix</p>
                         </div>
+                    </div>
+                    <div class="flex gap-1 h-6 items-end pr-4">
+                        <div class="w-1 bg-gold/40 h-2 animate-bounce" style="animation-duration: 0.6s"></div>
+                        <div class="w-1 bg-gold/70 h-4 animate-bounce" style="animation-duration: 0.9s"></div>
+                        <div class="w-1 bg-gold h-6 animate-bounce" style="animation-duration: 0.7s"></div>
+                        <div class="w-1 bg-gold/60 h-3 animate-bounce" style="animation-duration: 0.8s"></div>
                     </div>
                 </div>
             </div>
@@ -284,108 +306,140 @@
     </div>
 
     <!-- Time Capsule Modal -->
-    <div id="capsule-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-background-dark/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-        <div class="w-full max-w-lg glass-panel rounded-3xl p-8 modal-enter space-y-6">
+    <div id="capsule-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-background-dark/95 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div class="w-full max-w-lg glass-panel rounded-[2rem] p-10 modal-enter space-y-8">
             <div class="flex justify-between items-start">
                 <div class="space-y-1">
-                    <h3 class="text-2xl font-serif text-gold">Digital Time Capsule</h3>
-                    <p class="text-xs text-white/50 tracking-widest uppercase">Secret storage for 365 days</p>
+                    <h3 class="text-3xl font-serif text-gold">Digital Time Capsule</h3>
+                    <p class="text-xs text-white/40 tracking-[0.2em] uppercase font-bold">Lock your secret message</p>
                 </div>
-                <button onclick="closeTimeCapsule()" class="text-white/30 hover:text-white"><span class="material-symbols-outlined">close</span></button>
+                <button onclick="closeTimeCapsule()" class="text-white/30 hover:text-white transition-colors"><span class="material-symbols-outlined">close</span></button>
             </div>
-            <textarea rows="5" class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white focus:outline-none focus:border-gold/50 transition-colors" placeholder="Write something eternal..."></textarea>
-            <button onclick="sealCapsule()" class="w-full py-4 bg-gold text-background-dark font-bold rounded-2xl hover:bg-gold-light transition-all uppercase tracking-widest text-sm">Seal Forever</button>
+            <textarea id="capsule-textarea" rows="6" class="w-full bg-white/5 border border-white/10 rounded-2xl p-6 text-white focus:outline-none focus:border-gold/50 transition-colors text-lg italic placeholder:text-white/10" placeholder="A message for our future..."></textarea>
+            <button onclick="sealCapsule()" class="w-full py-5 bg-gold text-background-dark font-black rounded-2xl hover:bg-gold-light transition-all uppercase tracking-[0.2em] text-sm shadow-xl shadow-gold/10">Seal Forever</button>
         </div>
     </div>
 
-    <div id="toast" class="fixed bottom-12 left-1/2 -translate-x-1/2 z-[110] glass-panel px-6 py-3 rounded-full hidden">
-        <p class="text-sm font-bold text-gold" id="toast-text">Message Sealed!</p>
+    <div id="toast" class="fixed bottom-12 left-1/2 -translate-x-1/2 z-[110] glass-panel border border-gold/30 px-8 py-4 rounded-full hidden">
+        <p class="text-sm font-bold text-gold uppercase tracking-widest" id="toast-text">Message Sealed!</p>
     </div>
 
     <script>
         const storyData = [
             { 
-                title: "Rose Day", date: "Feb 7", loc: "The Garden", 
+                title: "Rose Day", date: "FEB 07", loc: "The Garden", icon: "🌹",
                 img: "https://images.unsplash.com/photo-1516589174184-c685266e430c?q=80&w=800&auto=format&fit=crop", 
                 desc: "It all started with a single rose, a bloom that whispered of things to come. Your smile was brighter than the petals." 
             },
             { 
-                title: "Propose Day", date: "Feb 8", loc: "Moonlit Walk", 
+                title: "Propose Day", date: "FEB 08", loc: "Moonlit Walk", icon: "💍",
                 img: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800&auto=format&fit=crop", 
                 desc: "That night under the stars, when I asked if you'd walk this path with me. Your 'yes' changed the gravity of my world." 
             },
             { 
-                title: "Chocolate Day", date: "Feb 9", loc: "Cozy Café", 
+                title: "Chocolate Day", date: "FEB 09", loc: "Cozy Café", icon: "🍫",
                 img: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?q=80&w=800&auto=format&fit=crop", 
                 desc: "Sweetness beyond words. Sharing that molten cake felt like sharing a secret that only we were meant to know." 
             },
             { 
-                title: "Teddy Day", date: "Feb 10", loc: "The Fair", 
+                title: "Teddy Day", date: "FEB 10", loc: "Heart's Corner", icon: "🧸",
                 img: "https://images.unsplash.com/photo-1559454403-b8fb88521f11?q=80&w=800&auto=format&fit=crop", 
                 desc: "A soft reminder that you're never alone. Something to hold onto when my arms aren't there to reach you." 
             },
             { 
-                title: "Promise Day", date: "Feb 11", loc: "Love Bridge", 
+                title: "Promise Day", date: "FEB 11", loc: "Love Bridge", icon: "🤝",
                 img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=800&auto=format&fit=crop", 
                 desc: "Promises aren't just words; they are the anchors of our love. I promised to choose you, every single day." 
             },
             { 
-                title: "Hug Day", date: "Feb 12", loc: "Our Bench", 
+                title: "Hug Day", date: "FEB 12", loc: "Our Bench", icon: "🤗",
                 img: "https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?q=80&w=800&auto=format&fit=crop", 
                 desc: "In your arms, the world falls silent. It's the only place where I truly feel I have finally come home." 
             },
             { 
-                title: "Kiss Day", date: "Feb 13", loc: "Rainy Street", 
+                title: "Kiss Day", date: "FEB 13", loc: "Rainy Street", icon: "💋",
                 img: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=200&auto=format&fit=crop", 
                 desc: "A moment frozen in time. A soft touch that felt like lightning, grounding us both in the magic of us." 
             },
             { 
-                title: "Valentine's Day", date: "Feb 14", loc: "The Grand Finale", 
-                img: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=200&auto=format&fit=crop", 
+                title: "Valentine's Day", date: "TODAY", loc: "The Grand Finale", icon: "❤️",
+                img: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1000&auto=format&fit=crop", 
                 desc: "The symphony reaches its peak. Seven days, thousands of moments, and a lifetime still to go. You are my forever." 
             }
         ];
 
-        let currentDay = 0;
-        let isPlaying = false;
-
         function setActiveDay(index) {
-            currentDay = index;
             const data = storyData[index];
-            
-            // Update Main View
-            document.getElementById('active-day-title').innerText = `${data.title} Memories`;
-            document.getElementById('day-badge').innerText = data.date;
-            document.getElementById('active-description').innerText = data.desc;
-            document.getElementById('active-image').src = data.img;
-            document.getElementById('active-location').innerText = data.loc;
-            
-            // Update Sidebar UI
-            document.querySelectorAll('.sidebar-btn').forEach((btn, i) => {
-                const entryLabel = btn.querySelector('.entry-label');
+            const buttons = document.querySelectorAll('.sidebar-btn');
+            const nodes = document.querySelectorAll('.timeline-node');
+            const profileIcon = document.getElementById('sidebar-profile-icon');
+
+            // 1. Update Sidebar Buttons
+            buttons.forEach((btn, i) => {
                 if (i === index) {
-                    btn.classList.add('sidebar-item-active', 'text-white');
-                    btn.classList.remove('text-white/40');
-                    const icon = btn.querySelector('.material-symbols-outlined');
-                    if (icon) icon.classList.add('text-gold');
-                    if (entryLabel) entryLabel.classList.remove('hidden');
+                    btn.classList.add('sidebar-btn-active');
                 } else {
-                    btn.classList.remove('sidebar-item-active', 'text-white');
-                    btn.classList.add('text-white/40');
-                    const icon = btn.querySelector('.material-symbols-outlined');
-                    if (icon) icon.classList.remove('text-gold');
-                    if (entryLabel) entryLabel.classList.add('hidden');
+                    btn.classList.remove('sidebar-btn-active');
                 }
             });
-        }
 
-        function togglePlay() {
-            isPlaying = !isPlaying;
-            const btn = document.getElementById('play-icon');
-            const bars = document.getElementById('visualizer').children;
-            btn.innerText = isPlaying ? 'pause' : 'play_arrow';
-            for(let bar of bars) bar.style.animationPlayState = isPlaying ? 'running' : 'paused';
-            if (isPlaying) showToast("Radio: Playing Endless Love");
+            // 2. Update Sidebar Profile Icon accordingly
+            profileIcon.innerText = data.icon;
+            profileIcon.style.transform = 'scale(1.2) rotate(10deg)';
+            setTimeout(() => {
+                profileIcon.style.transform = 'scale(1) rotate(0deg)';
+            }, 300);
+
+            // 3. Update Main Content
+            document.getElementById('main-content-title').innerText = data.title;
+            document.getElementById('main-content-badge').innerText = data.date;
+            document.getElementById('main-content-desc').innerText = data.desc;
+            document.getElementById('main-content-location').innerText = data.loc;
+            
+            // Fade effect for image change
+            const mainImg = document.getElementById('main-featured-image');
+            mainImg.style.opacity = '0.4';
+            setTimeout(() => {
+                mainImg.src = data.img;
+                mainImg.style.opacity = '1';
+            }, 300);
+
+            // 4. Update Horizontal Timeline Nodes
+            nodes.forEach((node, i) => {
+                const circle = node.querySelector('div');
+                const label = node.querySelector('span:first-of-type');
+                const dateLabel = node.querySelector('span:last-of-type');
+
+                if (i === index) {
+                    // Make it active
+                    if (i === 7) {
+                        circle.className = "w-10 h-10 rounded-full bg-primary flex items-center justify-center node-finale-glow transition-all";
+                        label.classList.add('text-gold', 'font-black');
+                        label.classList.remove('text-gold/40');
+                    } else {
+                        circle.className = "w-5 h-5 rounded-full bg-gold node-glow transition-all -mt-0.5";
+                        label.classList.add('text-white', 'font-black');
+                        label.classList.remove('text-white/40');
+                    }
+                    dateLabel.classList.remove('text-white/20', 'text-gold/20');
+                    dateLabel.classList.add('text-white/80');
+                } else {
+                    // Revert others
+                    if (i === 7) {
+                        circle.className = "w-10 h-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center transition-all";
+                        label.classList.add('text-gold/40');
+                        label.classList.remove('text-gold', 'font-black');
+                        dateLabel.classList.add('text-gold/20');
+                        dateLabel.classList.remove('text-white/80');
+                    } else {
+                        circle.className = "w-4 h-4 rounded-full bg-gold/40 node-glow transition-all";
+                        label.classList.add('text-white/40');
+                        label.classList.remove('text-white', 'font-black');
+                        dateLabel.classList.add('text-white/20');
+                        dateLabel.classList.remove('text-white/80');
+                    }
+                }
+            });
         }
 
         function openTimeCapsule() {
@@ -401,8 +455,11 @@
         }
 
         function sealCapsule() {
+            const text = document.getElementById('capsule-textarea').value;
+            if(!text.trim()) return;
             closeTimeCapsule();
-            showToast("Message Sealed for 2027!");
+            showToast("Sealed until 2027!");
+            document.getElementById('capsule-textarea').value = "";
         }
 
         function showToast(msg) {
@@ -434,10 +491,8 @@
         }
 
         window.onload = () => {
-            setActiveDay(7); // Default to Valentine's Day (Index 7)
             updateCountdown();
-            const bars = document.getElementById('visualizer').children;
-            for(let bar of bars) bar.style.animationPlayState = 'paused';
+            setActiveDay(3); // Default start with Teddy Day
         };
     </script>
 </body>
