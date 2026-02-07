@@ -139,185 +139,97 @@
                 ></div>
             </div>
             <!-- Sidebar Navigation -->
-            <aside
-                class="hidden md:flex flex-col w-80 h-full glass-panel z-20 border-r border-slate-200/50 dark:border-slate-700/30 overflow-y-auto"
-            >
-                <div class="p-8 pb-4">
-                    <h1
-                        class="text-slate-900 dark:text-white text-xl font-bold tracking-tight"
-                    >
-                        Chronicle 2026
-                    </h1>
-                    <p class="text-primary text-sm font-medium mt-1">
-                        The Invisible Thread
-                    </p>
+            <aside class="w-full md:w-[320px] flex-shrink-0 bg-sidebar-bg backdrop-blur-xl flex flex-col border-r border-border-dark h-full overflow-y-auto relative z-20 sidebar-panel hidden md:flex">
+                <div class="p-6">
+                    <!-- Header -->
+                    <div class="flex gap-4 items-center mb-8 sidebar-header">
+                        <div class="relative w-12 h-12 flex items-center justify-center bg-primary/20 rounded-full border border-primary/40 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                            <span class="text-2xl">🤝</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <h1 class="text-text-main text-lg font-bold leading-tight tracking-tight">The Chronicle</h1>
+                            <p class="text-primary text-[10px] font-bold uppercase tracking-[0.2em] text-glow">Valentine 2026</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation -->
+                    <nav class="flex flex-col gap-2 sidebar-nav">
+                        <a href="rose-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                            <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">deceased</span>
+                            <span class="text-sm font-medium">Rose Day</span>
+                        </a>
+                        <a href="propose-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                            <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">ring_volume</span>
+                            <span class="text-sm font-medium">Propose Day</span>
+                        </a>
+                        <a href="chocolate-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                            <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">cookie</span>
+                            <span class="text-sm font-medium">Chocolate Day</span>
+                        </a>
+                        <a href="teddy-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                            <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">redeem</span>
+                            <span class="text-sm font-medium">Teddy Day</span>
+                        </a>
+                        
+                        <!-- Active Item: Promise Day -->
+                        <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-primary/20 to-transparent border border-primary/30 shadow-[0_0_10px_rgba(16,185,129,0.1)] relative overflow-hidden group nav-item active magnetic-btn">
+                            <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <span class="material-symbols-outlined text-primary fill-current">handshake</span>
+                            <div class="flex flex-col">
+                                <span class="text-text-main text-sm font-bold">Promise Day</span>
+                                <span class="text-[10px] text-primary">Feb 11 • Entry 05</span>
+                            </div>
+                        </a>
+                        
+                        <a href="hug-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                            <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">sentiment_satisfied</span>
+                            <span class="text-sm font-medium">Hug Day</span>
+                        </a>
+                        <a href="kiss-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                            <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">favorite</span>
+                            <span class="text-sm font-medium">Kiss Day</span>
+                        </a>
+                        <a href="valentines-day.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-white/5 group opacity-60 hover:opacity-100 nav-item magnetic-btn">
+                            <span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">favorite_border</span>
+                            <span class="text-sm font-medium">Valentine's Day</span>
+                        </a>
+                    </nav>
                 </div>
-                <!-- Timeline / Navigation -->
-                <div class="flex flex-col gap-1 px-4 py-2 relative">
-                    <!-- The "Thread" Line -->
-                    <div
-                        class="absolute left-[34px] top-6 bottom-6 w-0.5 bg-slate-200 dark:bg-slate-700 z-0"
-                    ></div>
-                    <!-- Nav Item: Rose Day (Past) -->
-                    <a
-                        class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors z-10 opacity-60"
-                        href="rose-day.html"
-                    >
-                        <div
-                            class="relative flex items-center justify-center w-8 h-8 bg-slate-200 dark:bg-slate-700 rounded-full text-slate-500"
-                        >
-                            <span class="material-symbols-outlined text-[18px]"
-                                >check</span
-                            >
+
+                <!-- Sidebar Footer -->
+                <div class="mt-auto p-6 flex flex-col gap-6 bg-transparent sidebar-footer border-t border-border-dark">
+                    <div class="flex flex-col gap-3">
+                        <div class="flex justify-between items-end">
+                            <span class="text-text-muted text-[10px] font-bold uppercase tracking-widest">Next Chapter In</span>
+                            <span class="material-symbols-outlined text-primary text-sm animate-pulse">timer</span>
                         </div>
-                        <div class="flex flex-col">
-                            <span
-                                class="text-slate-900 dark:text-slate-200 font-medium text-sm"
-                                >Rose Day</span
-                            >
-                            <span class="text-xs text-slate-400">Feb 07</span>
+                        
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="bg-black/40 rounded-lg p-2 text-center border border-border-dark shadow-sm">
+                                <span id="cd-h" class="block text-lg font-bold text-text-main font-mono">00</span>
+                                <span class="text-[8px] text-primary uppercase">Hrs</span>
+                            </div>
+                            <div class="bg-black/40 rounded-lg p-2 text-center border border-border-dark shadow-sm">
+                                <span id="cd-m" class="block text-lg font-bold text-text-main font-mono">00</span>
+                                <span class="text-[8px] text-primary uppercase">Min</span>
+                            </div>
+                            <div class="bg-black/40 rounded-lg p-2 text-center border border-border-dark shadow-sm">
+                                <span id="cd-s" class="block text-lg font-bold text-text-main font-mono">00</span>
+                                <span class="text-[8px] text-primary uppercase">Sec</span>
+                            </div>
                         </div>
-                    </a>
-                    <!-- Nav Item: Propose Day (Past) -->
-                    <a
-                        class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors z-10 opacity-60"
-                        href="propose-day.html"
-                    >
-                        <div
-                            class="relative flex items-center justify-center w-8 h-8 bg-slate-200 dark:bg-slate-700 rounded-full text-slate-500"
-                        >
-                            <span class="material-symbols-outlined text-[18px]"
-                                >check</span
-                            >
-                        </div>
-                        <div class="flex flex-col">
-                            <span
-                                class="text-slate-900 dark:text-slate-200 font-medium text-sm"
-                                >Propose Day</span
-                            >
-                            <span class="text-xs text-slate-400">Feb 08</span>
-                        </div>
-                    </a>
-                    <!-- Nav Item: Chocolate Day (Past) -->
-                    <a
-                        class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors z-10 opacity-60"
-                        href="chocolate-day.html"
-                    >
-                        <div
-                            class="relative flex items-center justify-center w-8 h-8 bg-slate-200 dark:bg-slate-700 rounded-full text-slate-500"
-                        >
-                            <span class="material-symbols-outlined text-[18px]"
-                                >check</span
-                            >
-                        </div>
-                        <div class="flex flex-col">
-                            <span
-                                class="text-slate-900 dark:text-slate-200 font-medium text-sm"
-                                >Chocolate Day</span
-                            >
-                            <span class="text-xs text-slate-400">Feb 09</span>
-                        </div>
-                    </a>
-                    <!-- Nav Item: Teddy Day (Past) -->
-                    <a
-                        class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors z-10 opacity-60"
-                        href="teddy-day.html"
-                    >
-                        <div
-                            class="relative flex items-center justify-center w-8 h-8 bg-slate-200 dark:bg-slate-700 rounded-full text-slate-500"
-                        >
-                            <span class="material-symbols-outlined text-[18px]"
-                                >check</span
-                            >
-                        </div>
-                        <div class="flex flex-col">
-                            <span
-                                class="text-slate-900 dark:text-slate-200 font-medium text-sm"
-                                >Teddy Day</span
-                            >
-                            <span class="text-xs text-slate-400">Feb 10</span>
-                        </div>
-                    </a>
-                    <!-- Nav Item: Promise Day (Current) -->
-                    <a
-                        class="group flex items-center gap-4 px-4 py-3 rounded-xl bg-primary/10 border border-primary/20 shadow-sm z-10"
-                        href="#"
-                    >
-                        <div
-                            class="relative flex items-center justify-center w-8 h-8 bg-primary text-white rounded-full shadow-lg shadow-primary/30 ring-2 ring-white dark:ring-slate-800"
-                        >
-                            <span class="material-symbols-outlined text-[18px]"
-                                >handshake</span
-                            >
-                        </div>
-                        <div class="flex flex-col">
-                            <span
-                                class="text-slate-900 dark:text-white font-bold text-sm"
-                                >Promise Day</span
-                            >
-                            <span class="text-xs text-primary font-medium"
-                                >Feb 11 • Today</span
-                            >
-                        </div>
-                    </a>
-                    <!-- Future Days -->
-                    <a
-                        class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors z-10 opacity-50 grayscale"
-                        href="hug-day.html"
-                    >
-                        <div
-                            class="relative flex items-center justify-center w-8 h-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-full text-slate-300"
-                        >
-                            <span class="material-symbols-outlined text-[18px]"
-                                >favorite</span
-                            >
-                        </div>
-                        <div class="flex flex-col">
-                            <span
-                                class="text-slate-900 dark:text-slate-200 font-medium text-sm"
-                                >Hug Day</span
-                            >
-                            <span class="text-xs text-slate-400">Feb 12</span>
-                        </div>
-                    </a>
-                    <a
-                        class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors z-10 opacity-50 grayscale"
-                        href="kiss-day.html"
-                    >
-                        <div
-                            class="relative flex items-center justify-center w-8 h-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-full text-slate-300"
-                        >
-                            <span class="material-symbols-outlined text-[18px]"
-                                >favorite</span
-                            >
-                        </div>
-                        <div class="flex flex-col">
-                            <span
-                                class="text-slate-900 dark:text-slate-200 font-medium text-sm"
-                                >Kiss Day</span
-                            >
-                            <span class="text-xs text-slate-400">Feb 13</span>
-                        </div>
-                    </a>
-                    <a
-                        class="group flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors z-10 opacity-50 grayscale"
-                        href="valentines-day.html"
-                    >
-                        <div
-                            class="relative flex items-center justify-center w-8 h-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-full text-slate-300"
-                        >
-                            <span class="material-symbols-outlined text-[18px]"
-                                >favorite</span
-                            >
-                        </div>
-                        <div class="flex flex-col">
-                            <span
-                                class="text-slate-900 dark:text-slate-200 font-medium text-sm"
-                                >Valentine's Day</span
-                            >
-                            <span class="text-xs text-slate-400">Feb 14</span>
-                        </div>
-                    </a>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2">
+                        <button class="text-text-muted hover:text-text-main transition-colors flex items-center gap-2 text-xs">
+                            <span class="material-symbols-outlined text-[16px]">settings</span>
+                            Prefs
+                        </button>
+                        <button class="text-text-muted hover:text-primary transition-colors flex items-center gap-2 text-xs">
+                            <span class="material-symbols-outlined text-[16px]">logout</span>
+                            Exit
+                        </button>
+                    </div>
                 </div>
             </aside>
             <!-- Main Content Area -->
