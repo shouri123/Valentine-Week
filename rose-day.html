@@ -412,21 +412,8 @@
         // Countdown Logic
         function startCountdown() {
             function update() {
-                const now = new Date();
-                // Target: Feb 8 2026 (Next day)
-                const target = new Date('2026-02-08T00:00:00');
-                let diff = target - now;
-                
-                // If passed (for demo purposes, let's just make it a random future date if negative)
-                if (diff < 0) diff = 100000000 + (diff % 86400000); 
-
-                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-                document.getElementById('cd-h').textContent = h.toString().padStart(2, '0');
-                document.getElementById('cd-m').textContent = m.toString().padStart(2, '0');
-                document.getElementById('cd-s').textContent = s.toString().padStart(2, '0');
+                // Target: Feb 8 2026 (Propose Day)
+                updateCountdown('2026-02-08T00:00:00', { h: 'cd-h', m: 'cd-m', s: 'cd-s' });
             }
             setInterval(update, 1000);
             update();

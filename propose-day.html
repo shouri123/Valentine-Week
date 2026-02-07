@@ -523,19 +523,13 @@
     // Countdown Logic
     function startCountdown() {
         function update() {
-            const now = new Date();
-            const target = new Date();
-            target.setHours(24, 0, 0, 0); // Midnight tonight
+            // Target: Feb 9 2026 (Chocolate Day)
+            updateCountdown('2026-02-09T00:00:00', 'countdown');
             
-            let diff = target - now;
-            if (diff < 0) diff = 0;
-
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-            document.getElementById('countdown').textContent = 
-                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            // Also update sidebar countdown if present (h/m/s format)
+            if(document.getElementById('cd-h')) {
+                 updateCountdown('2026-02-09T00:00:00', { h: 'cd-h', m: 'cd-m', s: 'cd-s' });
+            }
         }
         setInterval(update, 1000);
         update();

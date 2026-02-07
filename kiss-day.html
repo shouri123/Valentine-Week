@@ -461,18 +461,8 @@
         // Countdown Logic
         function startCountdown() {
             function update() {
-                const now = new Date();
-                const target = new Date('2026-02-14T00:00:00'); // Valentine's Day
-                let diff = target - now;
-                if (diff < 0) diff = 100000000 + (diff % 86400000); 
-
-                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-                document.getElementById('cd-h').textContent = h.toString().padStart(2, '0');
-                document.getElementById('cd-m').textContent = m.toString().padStart(2, '0');
-                document.getElementById('cd-s').textContent = s.toString().padStart(2, '0');
+                // Target: Feb 14 2026 (Valentine's Day)
+                updateCountdown('2026-02-14T00:00:00', { h: 'cd-h', m: 'cd-m', s: 'cd-s' });
             }
             setInterval(update, 1000);
             update();

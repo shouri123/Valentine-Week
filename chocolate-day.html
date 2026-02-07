@@ -498,9 +498,20 @@
             });
         }
 
+        // Countdown Logic
+        function startCountdown() {
+            function update() {
+                // Target: Feb 10 2026 (Teddy Day)
+                updateCountdown('2026-02-10T00:00:00', { d: 'cd-d', h: 'cd-h', m: 'cd-m', s: 'cd-s' });
+            }
+            setInterval(update, 1000);
+            update();
+        }
+
         // GSAP Animations (Initialization)
         window.addEventListener('load', () => {
             gsap.registerPlugin();
+            startCountdown();
             
             const tl = gsap.timeline();
 

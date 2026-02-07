@@ -749,8 +749,19 @@
                 });
             }
 
+            // Countdown Logic
+            function startCountdown() {
+                function update() {
+                    // Target: Feb 12 2026 (Hug Day)
+                     updateCountdown('2026-02-12T00:00:00', { h: 'cd-h', m: 'cd-m', s: 'cd-s' });
+                }
+                setInterval(update, 1000);
+                update();
+            }
+
             // --- GSAP Page Load Animations ---
             window.addEventListener("load", () => {
+                startCountdown();
                 const tl = gsap.timeline();
                 tl.to("#app-body", { opacity: 1, duration: 0.5 })
                     .from(

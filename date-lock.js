@@ -101,6 +101,45 @@ function checkPageAccess(requiredDay) {
 }
 
 /**
+ * Update a countdown timer to a specific target date
+ * @param {string} targetDate - ISO string or date string (e.g. '2026-02-08T00:00:00')
+ * @param {object} elementIds - Object with ids for { d, h, m, s } or just 'timer' for text
+ */
+function updateCountdown(targetDateStr, elementIds) {
+  const now = new Date();
+  const target = new Date(targetDateStr);
+  let diff = target - now;
+
+  // If passed, show 00:00:00 (or handle as needed)
+  if (diff < 0) diff = 0;
+
+  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+  // If elementIds has specific fields (h, m, s)
+  if (elementIds.h && document.getElementById(elementIds.h)) {
+    document.getElementById(elementIds.h).textContent = h
+      .toString()
+      .padStart(2, "0");
+    document.getElementById(elementIds.m).textContent = m
+      .toString()
+      .padStart(2, "0");
+    document.getElementById(elementIds.s).textContent = s
+      .toString()
+      .padStart(2, "0");
+  }
+  // If elementIds is a single element ID (e.g. for text like "05:12:30")
+  else if (typeof elementIds === "string" && document.getElementById(elementIds)) {
+    document.getElementById(elementIds).textContent = `${h
+      .toString()
+      .padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s
+      .toString()
+      .padStart(2, "0")}`;
+  }
+}
+
+/**
  * Format countdown string
  * @param {number} dayOfMonth - The day of the month (7-14)
  * @returns {string} - Formatted countdown string
