@@ -196,7 +196,7 @@
         <!-- Mobile Header -->
         <div class="md:hidden flex items-center justify-between p-4 glass-panel sticky top-0 z-40 bg-background-dark/80 backdrop-blur-xl border-b border-border-gold">
             <span class="font-bold text-white font-serif tracking-wide">The Chronicle</span>
-            <button onclick="toggleSidebar()" class="text-primary hover:text-white transition-colors p-2">
+            <button id="mobile-menu-btn" class="text-primary hover:text-white transition-colors p-2">
                 <span class="material-symbols-outlined">menu</span>
             </button>
         </div>
@@ -401,19 +401,7 @@
 <script>
     // --- Interactions ---
 
-    // Toggle Sidebar Function
-    function toggleSidebar() {
-        const sidebar = document.getElementById('main-sidebar');
-        const overlay = document.getElementById('sidebar-overlay');
-        
-        if (sidebar.classList.contains('hidden')) {
-            sidebar.classList.remove('hidden');
-            overlay.classList.remove('hidden');
-        } else {
-            sidebar.classList.add('hidden');
-            overlay.classList.add('hidden');
-        }
-    }
+
 
     // Select Proposal Vibe
     function selectProposal(btn, text) {
