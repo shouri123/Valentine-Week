@@ -8,12 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.getElementById('main-sidebar');
     const overlay = document.getElementById('sidebar-overlay');
 
+    let transitionTimeout;
+
     if (!mobileMenuBtn || !sidebar || !overlay) {
         console.warn('Mobile UI elements not found');
         return;
     }
 
     function openSidebar() {
+        clearTimeout(transitionTimeout);
         sidebar.classList.remove('-translate-x-full');
         overlay.classList.remove('hidden');
         // Force reflow
@@ -23,11 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeSidebar() {
+        clearTimeout(transitionTimeout);
         sidebar.classList.add('-translate-x-full');
         overlay.classList.remove('opacity-100');
         overlay.classList.add('opacity-0');
         
-        setTimeout(() => {
+        transitionTimeout = setTimeout(() => {
             overlay.classList.add('hidden');
         }, 300); // Match CSS transition duration
     }
