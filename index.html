@@ -7,520 +7,693 @@
     <title>Valentine Week 2026 💕 | 7 Days of Love</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@700&display=swap">
     <style>
+        :root {
+            --primary: #ff4b6e;
+            --secondary: #6c5ce7;
+            --accent: #fd79a8;
+            --background: #0f0c29;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+            --font-main: 'Outfit', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            --font-script: 'Dancing Script', cursive;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #e94560);
-            background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite;
+            background-color: var(--background);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 75, 110, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(108, 92, 231, 0.15) 0%, transparent 40%);
+            color: var(--text);
+            font-family: var(--font-main);
+            overflow-x: hidden;
             min-height: 100vh;
         }
-        
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+
+        /* Canvas Background */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
-        
-        .hero-header {
+
+        /* Custom Cursor Trail */
+        .cursor-trail {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: 9999;
+            animation: fadeOut 1s linear forwards;
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; transform: scale(0); }
+        }
+
+        /* Ambient Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -2;
+            opacity: 0.6;
+            animation: floatOrb 20s ease-in-out infinite;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(255, 75, 110, 0.2); }
+        .orb-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: rgba(108, 92, 231, 0.15); animation-delay: -10s; }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 50px); }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 4rem 2rem 2rem;
+            padding: 2rem;
+            position: relative;
         }
-        
+
         .main-title {
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 10vw, 5rem);
-            color: white;
-            text-shadow: 0 4px 30px rgba(233, 69, 96, 0.5);
-            margin-bottom: 0.5rem;
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        .main-subtitle {
-            font-family: var(--font-script);
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            color: rgba(255, 255, 255, 0.9);
+            font-family: var(--font-serif);
+            font-size: clamp(4rem, 12vw, 8rem);
+            font-weight: 700;
+            line-height: 0.9;
+            background: linear-gradient(135deg, #fff, #ffd1dc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
-            animation: fadeInUp 1s ease-out 0.2s backwards;
+            opacity: 0;
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        
-        .year-badge {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: linear-gradient(135deg, #e94560, #ff6b9d);
+
+        .main-title span {
+            font-family: var(--font-script);
+            color: var(--primary);
+            -webkit-text-fill-color: var(--primary);
+            font-size: 0.6em;
+            display: block;
+            margin-bottom: -0.2em;
+        }
+
+        .main-tagline {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+        }
+
+        .cta-btn {
+            padding: 1rem 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px;
             color: white;
+            font-size: 1.1rem;
             font-weight: 600;
-            letter-spacing: 3px;
-            animation: fadeInUp 1s ease-out 0.4s backwards;
-        }
-        
-        .days-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 3rem auto;
-            padding: 0 2rem;
-        }
-        
-        .day-card {
-            position: relative;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 2.5rem 2rem;
-            text-align: center;
             text-decoration: none;
-            transition: all 0.4s ease;
-            border: 2px solid transparent;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+            position: relative;
             overflow: hidden;
         }
-        
-        .day-card::before {
+
+        .cta-btn::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--card-gradient);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-            border-radius: 23px;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
         }
-        
-        .day-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 30px rgba(255, 75, 110, 0.4);
+            border-color: rgba(255, 255, 255, 0.5);
         }
-        
-        .day-card:hover::before {
-            opacity: 0.3;
+
+        .cta-btn:hover::before {
+            left: 100%;
         }
-        
-        .day-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        
-        .day-card:hover .day-icon {
-            transform: scale(1.2) rotate(5deg);
-        }
-        
-        .day-date {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.7);
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
             letter-spacing: 2px;
             text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 1s ease 1s forwards;
+        }
+
+        .scroll-mouse {
+            width: 26px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            padding-top: 8px;
+        }
+
+        .scroll-wheel {
+            width: 4px;
+            height: 8px;
+            background: white;
+            border-radius: 2px;
+            animation: scrollWheel 1.5s infinite;
+        }
+
+        /* Days Grid & Cards */
+        .grid-section {
+            padding: 5rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
             margin-bottom: 0.5rem;
         }
-        
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            perspective: 1000px;
+        }
+
+        .day-card {
+            position: relative;
+            background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-decoration: none;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+        }
+
+        .day-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(160deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+        }
+
+        /* Holographic Glow on Hover */
+        .day-card::after {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            opacity: 0;
+            transform: rotate(30deg);
+            transition: opacity 0.5s;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        .day-card:hover::after {
+            opacity: 1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .day-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .day-card:hover .day-icon {
+            transform: scale(1.2) translateY(-5px);
+        }
+
+        .day-date {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
         .day-name {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
+            font-family: var(--font-serif);
+            font-size: 2rem;
             color: white;
             margin-bottom: 0.5rem;
+            font-weight: 700;
         }
-        
-        .day-tagline {
-            font-family: var(--font-script);
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
+
+        .day-desc {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
         }
-        
-        .day-status {
+
+        /* Status Badges */
+        .status-badge {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            top: 1.5rem;
+            right: 1.5rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
+            backdrop-filter: blur(5px);
+            z-index: 5;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        
-        .status-today {
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            color: white;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        .status-upcoming {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-        
-        .status-passed {
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
-        }
-        
-        /* Locked Day Styles */
-        .day-card.locked {
-            cursor: not-allowed;
-            filter: grayscale(60%);
-            opacity: 0.7;
-        }
-        
-        .day-card.locked:hover {
-            transform: none;
-            border-color: rgba(255, 255, 255, 0.1);
-            box-shadow: none;
-        }
-        
-        .day-card.locked:hover::before {
-            opacity: 0;
-        }
-        
-        .day-card.locked .day-icon {
-            filter: grayscale(100%);
-        }
-        
-        .day-card.locked:hover .day-icon {
-            transform: none;
-        }
-        
-        .lock-overlay {
+
+        .status-unlocked { background: linear-gradient(135deg, #00b894, #00cec9); color: #fff; }
+        .status-locked { background: rgba(0,0,0,0.3); color: #aaa; border: 1px solid rgba(255,255,255,0.1); }
+        .status-today { background: linear-gradient(135deg, #ff7675, #d63031); color: #fff; animation: pulse 2s infinite; }
+
+        /* Lock Overlay */
+        .lock-screen {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(2px);
+            background: rgba(15, 12, 41, 0.85);
+            backdrop-filter: blur(8px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-radius: 23px;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: all 0.4s ease;
             z-index: 10;
         }
-        
-        .day-card.locked:hover .lock-overlay {
+
+        .day-card.locked:hover .lock-screen {
             opacity: 1;
         }
-        
+
         .lock-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            animation: lockPulse 1.5s ease-in-out infinite;
-        }
-        
-        .unlock-text {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .countdown-mini {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 0.3rem;
-        }
-        
-        @keyframes lockPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        @keyframes lockShake {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-8px); }
-            40% { transform: translateX(8px); }
-            60% { transform: translateX(-6px); }
-            80% { transform: translateX(6px); }
-        }
-        
-        .shake {
-            animation: lockShake 0.5s ease-in-out;
-        }
-        
-        .status-locked {
-            background: linear-gradient(135deg, #4a5568, #2d3748);
-            color: white;
-        }
-        
-        /* Card specific gradients */
-        .rose-card { --card-gradient: linear-gradient(135deg, #ff6b6b, #ee5a5a); }
-        .propose-card { --card-gradient: linear-gradient(135deg, #667eea, #764ba2); }
-        .chocolate-card { --card-gradient: linear-gradient(135deg, #8B4513, #D2691E); }
-        .teddy-card { --card-gradient: linear-gradient(135deg, #f5af19, #f12711); }
-        .promise-card { --card-gradient: linear-gradient(135deg, #11998e, #38ef7d); }
-        .hug-card { --card-gradient: linear-gradient(135deg, #fa709a, #fee140); }
-        .kiss-card { --card-gradient: linear-gradient(135deg, #ff0844, #ffb199); }
-        .valentine-card { --card-gradient: linear-gradient(135deg, #ff416c, #ff4b2b); }
-        
-        .footer-main {
-            text-align: center;
-            padding: 3rem 2rem;
-        }
-        
-        .footer-text {
-            font-family: var(--font-script);
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.9);
+            font-size: 2rem;
+            color: rgba(255,255,255,0.5);
             margin-bottom: 1rem;
+            animation: shake 2s infinite;
         }
-        
-        .footer-subtext {
-            color: rgba(255, 255, 255, 0.6);
+
+        .unlock-timer {
+            font-family: 'Courier New', monospace;
             font-size: 0.9rem;
+            color: var(--primary);
+            background: rgba(0,0,0,0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .love-quote {
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
+
+        /* Animations */
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scrollWheel { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(12px); opacity: 0; } }
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 118, 117, 0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 118, 117, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 118, 117, 0); } }
+        @keyframes shake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
+
+        /* Card Colors */
+        .rose-accent { --accent-color: #ff4b6e; }
+        .propose-accent { --accent-color: #6c5ce7; }
+        .chocolate-accent { --accent-color: #d35400; }
+        .teddy-accent { --accent-color: #f1c40f; }
+        .promise-accent { --accent-color: #2ecc71; }
+        .hug-accent { --accent-color: #e84393; }
+        .kiss-accent { --accent-color: #e74c3c; }
+        .valentine-accent { --accent-color: #ff0000; }
+
+        .day-card:hover { border-color: var(--accent-color); }
+        .day-card:hover .day-date { color: var(--accent-color); }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem;
             text-align: center;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+            background: rgba(0,0,0,0.2);
         }
-        
-        .quote-text {
-            font-family: var(--font-script);
-            font-size: 1.5rem;
-            color: white;
-            line-height: 1.6;
-            margin-bottom: 0.5rem;
+
+        .quote-box {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            position: relative;
         }
-        
-        .quote-author {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
+
+        .quote-box::before, .quote-box::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--glass-border);
+            position: absolute;
         }
-        
-        @media (max-width: 768px) {
-            .days-grid {
-                grid-template-columns: 1fr;
-                padding: 0 1rem;
-            }
-            
-            .day-card {
-                padding: 2rem 1.5rem;
-            }
-        }
+        .quote-box::before { left: -2rem; top: -1rem; }
+        .quote-box::after { right: -2rem; bottom: -2rem; }
     </style>
 </head>
 <body>
-    <!-- Floating Elements -->
-    <div class="floating-element">💕</div>
-    <div class="floating-element">❤️</div>
-    <div class="floating-element">💗</div>
-    <div class="floating-element">💖</div>
-    <div class="floating-element">💓</div>
-    <div class="floating-element">💘</div>
 
-    <!-- Hero Header -->
-    <header class="hero-header">
-        <h1 class="main-title">Valentine Week</h1>
-        <p class="main-subtitle">7 Days of Love & Romance</p>
-        <span class="year-badge">FEBRUARY 2026</span>
-    </header>
+    <!-- Particle Canvas -->
+    <canvas id="particle-canvas"></canvas>
 
-    <!-- Love Quote -->
-    <section class="love-quote">
-        <p class="quote-text">"Love is composed of a single soul inhabiting two bodies."</p>
-        <p class="quote-author">— Aristotle</p>
-    </section>
+    <!-- Ambient Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
 
-    <!-- Days Grid -->
-    <main class="days-grid">
-        <!-- Rose Day -->
-        <a href="rose-day.html" class="day-card rose-card" data-day="7">
-            <div class="lock-overlay">
-                <span class="lock-icon">🔒</span>
-                <span class="unlock-text">Unlocks Feb 7</span>
-                <span class="countdown-mini"></span>
+    <!-- Hero Section -->
+    <main class="hero-section">
+        <h1 class="main-title">
+            <span>The Chronicle of</span>
+            Valentine Week
+        </h1>
+        <p class="main-tagline">
+            Eight days of romance, encoded in memories. Unlock each chapter as the stars align.
+        </p>
+        <a href="#week-grid" class="cta-btn">Begin Journey</a>
+
+        <div class="scroll-indicator">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
             </div>
-            <span class="day-status status-today">Today!</span>
-            <span class="day-icon">🌹</span>
-            <p class="day-date">February 7</p>
-            <h2 class="day-name">Rose Day</h2>
-            <p class="day-tagline">Where love begins to bloom</p>
-        </a>
-        
-        <!-- Propose Day -->
-        <a href="propose-day.html" class="day-card propose-card" data-day="8">
-            <div class="lock-overlay">
-                <span class="lock-icon">🔒</span>
-                <span class="unlock-text">Unlocks Feb 8</span>
-                <span class="countdown-mini"></span>
-            </div>
-            <span class="day-status status-upcoming">Upcoming</span>
-            <span class="day-icon">💍</span>
-            <p class="day-date">February 8</p>
-            <h2 class="day-name">Propose Day</h2>
-            <p class="day-tagline">Take the leap of love</p>
-        </a>
-        
-        <!-- Chocolate Day -->
-        <a href="chocolate-day.html" class="day-card chocolate-card" data-day="9">
-            <div class="lock-overlay">
-                <span class="lock-icon">🔒</span>
-                <span class="unlock-text">Unlocks Feb 9</span>
-                <span class="countdown-mini"></span>
-            </div>
-            <span class="day-status status-upcoming">Upcoming</span>
-            <span class="day-icon">🍫</span>
-            <p class="day-date">February 9</p>
-            <h2 class="day-name">Chocolate Day</h2>
-            <p class="day-tagline">Sweet moments of love</p>
-        </a>
-        
-        <!-- Teddy Day -->
-        <a href="teddy-day.html" class="day-card teddy-card" data-day="10">
-            <div class="lock-overlay">
-                <span class="lock-icon">🔒</span>
-                <span class="unlock-text">Unlocks Feb 10</span>
-                <span class="countdown-mini"></span>
-            </div>
-            <span class="day-status status-upcoming">Upcoming</span>
-            <span class="day-icon">🧸</span>
-            <p class="day-date">February 10</p>
-            <h2 class="day-name">Teddy Day</h2>
-            <p class="day-tagline">A hug that lasts forever</p>
-        </a>
-        
-        <!-- Promise Day -->
-        <a href="promise-day.html" class="day-card promise-card" data-day="11">
-            <div class="lock-overlay">
-                <span class="lock-icon">🔒</span>
-                <span class="unlock-text">Unlocks Feb 11</span>
-                <span class="countdown-mini"></span>
-            </div>
-            <span class="day-status status-upcoming">Upcoming</span>
-            <span class="day-icon">🤝</span>
-            <p class="day-date">February 11</p>
-            <h2 class="day-name">Promise Day</h2>
-            <p class="day-tagline">Words that build forever</p>
-        </a>
-        
-        <!-- Hug Day -->
-        <a href="hug-day.html" class="day-card hug-card" data-day="12">
-            <div class="lock-overlay">
-                <span class="lock-icon">🔒</span>
-                <span class="unlock-text">Unlocks Feb 12</span>
-                <span class="countdown-mini"></span>
-            </div>
-            <span class="day-status status-upcoming">Upcoming</span>
-            <span class="day-icon">🤗</span>
-            <p class="day-date">February 12</p>
-            <h2 class="day-name">Hug Day</h2>
-            <p class="day-tagline">Warmth in every embrace</p>
-        </a>
-        
-        <!-- Kiss Day -->
-        <a href="kiss-day.html" class="day-card kiss-card" data-day="13">
-            <div class="lock-overlay">
-                <span class="lock-icon">🔒</span>
-                <span class="unlock-text">Unlocks Feb 13</span>
-                <span class="countdown-mini"></span>
-            </div>
-            <span class="day-status status-upcoming">Upcoming</span>
-            <span class="day-icon">💋</span>
-            <p class="day-date">February 13</p>
-            <h2 class="day-name">Kiss Day</h2>
-            <p class="day-tagline">Where words end, love begins</p>
-        </a>
-        
-        <!-- Valentine's Day -->
-        <a href="valentines-day.html" class="day-card valentine-card" data-day="14">
-            <div class="lock-overlay">
-                <span class="lock-icon">🔒</span>
-                <span class="unlock-text">Unlocks Feb 14</span>
-                <span class="countdown-mini"></span>
-            </div>
-            <span class="day-status status-upcoming">Upcoming</span>
-            <span class="day-icon">❤️</span>
-            <p class="day-date">February 14</p>
-            <h2 class="day-name">Valentine's Day</h2>
-            <p class="day-tagline">The day love shines brightest</p>
-        </a>
+            <span>Scroll</span>
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer-main">
-        <p class="footer-text">Spread love, one day at a time 💕</p>
-        <p class="footer-subtext">Click on any day to explore its special meaning</p>
+    <!-- Days Grid -->
+    <section id="week-grid" class="grid-section">
+        <div class="section-header">
+            <h2 class="section-title">Your Timetable</h2>
+            <p style="color: rgba(255,255,255,0.6)">Select a day to enter its world</p>
+        </div>
+
+        <div class="days-grid">
+            <!-- Rose Day -->
+            <a href="rose-day.html" class="day-card rose-accent" data-day="7">
+                <div class="status-badge status-unlocked">Feb 7</div>
+                <div class="card-content">
+                    <span class="day-icon">🌹</span>
+                    <p class="day-date">First Entry</p>
+                    <h3 class="day-name">Rose Day</h3>
+                    <p class="day-desc">The beginning of blooming affection.</p>
+                </div>
+                <div class="lock-screen">
+                    <span class="lock-icon">🔒</span>
+                    <div class="unlock-timer">Pending</div>
+                </div>
+            </a>
+
+            <!-- Propose Day -->
+            <a href="propose-day.html" class="day-card propose-accent" data-day="8">
+                <div class="status-badge status-locked">Feb 8</div>
+                <div class="card-content">
+                    <span class="day-icon">💍</span>
+                    <p class="day-date">Second Entry</p>
+                    <h3 class="day-name">Propose Day</h3>
+                    <p class="day-desc">The courage to ask the question.</p>
+                </div>
+                <div class="lock-screen">
+                    <span class="lock-icon">🔒</span>
+                    <div class="unlock-timer">Unlocks in 24h</div>
+                </div>
+            </a>
+
+            <!-- Chocolate Day -->
+            <a href="chocolate-day.html" class="day-card chocolate-accent" data-day="9">
+                <div class="status-badge status-locked">Feb 9</div>
+                <div class="card-content">
+                    <span class="day-icon">🍫</span>
+                    <p class="day-date">Third Entry</p>
+                    <h3 class="day-name">Chocolate Day</h3>
+                    <p class="day-desc">Sweetness that melts the heart.</p>
+                </div>
+                <div class="lock-screen">
+                    <span class="lock-icon">🔒</span>
+                    <div class="unlock-timer">Locked</div>
+                </div>
+            </a>
+
+            <!-- Teddy Day -->
+            <a href="teddy-day.html" class="day-card teddy-accent" data-day="10">
+                <div class="status-badge status-locked">Feb 10</div>
+                <div class="card-content">
+                    <span class="day-icon">🧸</span>
+                    <p class="day-date">Fourth Entry</p>
+                    <h3 class="day-name">Teddy Day</h3>
+                    <p class="day-desc">Comfort in a soft embrace.</p>
+                </div>
+                <div class="lock-screen">
+                    <span class="lock-icon">🔒</span>
+                    <div class="unlock-timer">Locked</div>
+                </div>
+            </a>
+
+            <!-- Promise Day -->
+            <a href="promise-day.html" class="day-card promise-accent" data-day="11">
+                <div class="status-badge status-locked">Feb 11</div>
+                <div class="card-content">
+                    <span class="day-icon">🤝</span>
+                    <p class="day-date">Fifth Entry</p>
+                    <h3 class="day-name">Promise Day</h3>
+                    <p class="day-desc">Vows meant to be kept forever.</p>
+                </div>
+                <div class="lock-screen">
+                    <span class="lock-icon">🔒</span>
+                    <div class="unlock-timer">Locked</div>
+                </div>
+            </a>
+
+            <!-- Hug Day -->
+            <a href="hug-day.html" class="day-card hug-accent" data-day="12">
+                <div class="status-badge status-locked">Feb 12</div>
+                <div class="card-content">
+                    <span class="day-icon">🤗</span>
+                    <p class="day-date">Sixth Entry</p>
+                    <h3 class="day-name">Hug Day</h3>
+                    <p class="day-desc">Warmth that speaks volumes.</p>
+                </div>
+                <div class="lock-screen">
+                    <span class="lock-icon">🔒</span>
+                    <div class="unlock-timer">Locked</div>
+                </div>
+            </a>
+
+            <!-- Kiss Day -->
+            <a href="kiss-day.html" class="day-card kiss-accent" data-day="13">
+                <div class="status-badge status-locked">Feb 13</div>
+                <div class="card-content">
+                    <span class="day-icon">💋</span>
+                    <p class="day-date">Seventh Entry</p>
+                    <h3 class="day-name">Kiss Day</h3>
+                    <p class="day-desc">Sealing the bond with love.</p>
+                </div>
+                <div class="lock-screen">
+                    <span class="lock-icon">🔒</span>
+                    <div class="unlock-timer">Locked</div>
+                </div>
+            </a>
+
+            <!-- Valentine's Day -->
+            <a href="valentines-day.html" class="day-card valentine-accent" data-day="14">
+                <div class="status-badge status-locked">Feb 14</div>
+                <div class="card-content">
+                    <span class="day-icon">❤️</span>
+                    <p class="day-date">The Finale</p>
+                    <h3 class="day-name">Valentine's Day</h3>
+                    <p class="day-desc">The ultimate celebration of us.</p>
+                </div>
+                <div class="lock-screen">
+                    <span class="lock-icon">🔒</span>
+                    <div class="unlock-timer">Locked</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="quote-box" id="daily-quote">
+            Love is not about possession, it's all about appreciation.
+        </div>
+        <p style="font-size: 0.8rem; opacity: 0.5; margin-top: 1rem;">© 2026 Valentine Week Experience</p>
     </footer>
 
-    <!-- Date Lock Utility -->
+    <!-- Scripts -->
     <script src="date-lock.js"></script>
-    
     <script>
-        // Valentine Week Day Locking System
-        document.addEventListener('DOMContentLoaded', function() {
-            const dayCards = document.querySelectorAll('.day-card');
-            
-            // Initialize each card
-            dayCards.forEach(card => {
-                const dayNum = parseInt(card.dataset.day);
-                const status = getDayStatus(dayNum);
-                const statusEl = card.querySelector('.day-status');
-                const countdownEl = card.querySelector('.countdown-mini');
-                
-                if (status === 'locked') {
-                    // Lock the card
-                    card.classList.add('locked');
-                    statusEl.textContent = '🔒 Locked';
-                    statusEl.className = 'day-status status-locked';
-                    
-                    // Update countdown
-                    updateCardCountdown(card, dayNum);
-                    
-                    // Prevent navigation on locked cards
-                    card.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        
-                        // Shake animation
-                        card.classList.add('shake');
-                        setTimeout(() => card.classList.remove('shake'), 500);
-                    });
-                    
-                } else if (status === 'today') {
-                    statusEl.textContent = "✨ Today!";
-                    statusEl.className = 'day-status status-today';
-                    
-                } else {
-                    // Unlocked (past day)
-                    statusEl.textContent = "💝 Open";
-                    statusEl.className = 'day-status status-passed';
-                }
-            });
-            
-            // Update countdowns every second
-            setInterval(() => {
-                document.querySelectorAll('.day-card.locked').forEach(card => {
-                    const dayNum = parseInt(card.dataset.day);
-                    updateCardCountdown(card, dayNum);
-                });
-            }, 1000);
-        });
-        
-        function updateCardCountdown(card, dayNum) {
-            const countdownEl = card.querySelector('.countdown-mini');
-            const time = getTimeUntilUnlock(dayNum);
-            
-            if (time.days > 0) {
-                countdownEl.textContent = `${time.days}d ${time.hours}h ${time.minutes}m`;
-            } else if (time.hours > 0) {
-                countdownEl.textContent = `${time.hours}h ${time.minutes}m ${time.seconds}s`;
-            } else {
-                countdownEl.textContent = `${time.minutes}m ${time.seconds}s`;
+        // --- 1. Particle Canvas Animation ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.reset();
             }
-            
-            // Check if just unlocked
-            if (time.total <= 0) {
-                location.reload(); // Refresh to unlock the day
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+                this.life = Math.random() * 100;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life--;
+
+                if (this.life < 0 || this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fill();
             }
         }
+
+        for (let i = 0; i < 100; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // --- 2. Cursor Trail Effect ---
+        document.addEventListener('mousemove', (e) => {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            document.body.appendChild(trail);
+            
+            setTimeout(() => {
+                trail.remove();
+            }, 1000);
+        });
+
+        // --- 3. Dynamic Status & Locking Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.day-card');
+            
+            // NOTE: This relies on date-lock.js being present. 
+            // If date-lock.js defines global functions, we use them.
+            // Below is a fallback/integrated logic for visual states.
+
+            cards.forEach(card => {
+                const dayNum = parseInt(card.dataset.day);
+                // Mock logic for visuals:
+                // ideally getDayStatus(dayNum) from date-lock.js would be used here.
+                // We will assume date-lock.js handles the CLICK prevention.
+                // We update the VISUALS based on the class set by date-lock.js OR defaults.
+                
+                // For demo, we trigger a re-check if the external script runs:
+                if (window.getDayStatus) {
+                    const status = getDayStatus(dayNum);
+                    const badge = card.querySelector('.status-badge');
+                    const timer = card.querySelector('.unlock-timer');
+                    
+                    if (status === 'locked') {
+                        card.classList.add('locked');
+                        badge.className = 'status-badge status-locked';
+                        badge.textContent = 'Locked';
+                        // Update timer
+                        const time = getTimeUntilUnlock(dayNum);
+                        if(time.days > 0) timer.textContent = `${time.days}d ${time.hours}h`;
+                        else timer.textContent = `${time.hours}h ${time.minutes}m`;
+                    } else if (status === 'today') {
+                        badge.className = 'status-badge status-today';
+                        badge.textContent = 'Today!';
+                        card.querySelector('.lock-screen').style.display = 'none';
+                    } else {
+                        badge.className = 'status-badge status-unlocked';
+                        badge.textContent = 'Open';
+                        card.querySelector('.lock-screen').style.display = 'none';
+                    }
+                }
+            });
+
+            // Random Quote Integration
+            const quotes = [
+                "Love is composed of a single soul inhabiting two bodies.",
+                "Where there is love there is life.",
+                "To love and be loved is to feel the sun from both sides.",
+                "Love implies wrath. The man who is angered by nothing cares about nothing.",
+                "The best thing to hold onto in life is each other."
+            ];
+            document.getElementById('daily-quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+        });
     </script>
 </body>
 </html>
