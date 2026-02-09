@@ -540,7 +540,7 @@
 
         // Sidebar Entrance (Desktop Only)
         if (window.innerWidth >= 768) {
-             tl.from(".sidebar-panel", { x: -50, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.4")
+             tl.from(".sidebar-panel", { opacity: 0, duration: 1, ease: "power3.out" }, "-=0.4")
                .from(".sidebar-header", { y: -20, opacity: 0, duration: 0.6 }, "-=0.6")
                .from(".nav-item", { x: -20, opacity: 0, stagger: 0.05, duration: 0.5 }, "-=0.4");
         }
