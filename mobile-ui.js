@@ -23,6 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
         void overlay.offsetWidth;
         overlay.classList.remove('opacity-0');
         overlay.classList.add('opacity-100');
+        
+        // Ensure sidebar is on top of everything (z-index fix)
+        sidebar.style.zIndex = '100';
+        overlay.style.zIndex = '90';
     }
 
     function closeSidebar() {
@@ -61,4 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // Close Button Logic
+    const closeBtn = document.getElementById('sidebar-close-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeSidebar);
+    }
 });
