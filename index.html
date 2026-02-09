@@ -762,6 +762,42 @@
         const bgMusic = document.getElementById('bg-music');
         let isPlaying = false;
 
+        // Date-specific song loader
+        const playlist = {
+            7: { title: "Pehla Nasha 🌹", file: "assets/day-7.mp3" },
+            8: { title: "Tera Ban Jaunga 💍", file: "assets/day-8.mp3" },
+            9: { title: "Raabta 🍫", file: "assets/day-9.mp3" },
+            10: { title: "Tum Se Hi 🧸", file: "assets/day-10.mp3" },
+            11: { title: "Khuda Jaane 🤍", file: "assets/day-11.mp3" },
+            12: { title: "Hawayein 💞", file: "assets/day-12.mp3" },
+            13: { title: "Raatan Lambiyan 💋", file: "assets/day-13.mp3" },
+            14: { title: "Agar Tum Saath Ho ❤️", file: "assets/day-14.mp3" }
+        };
+
+        function loadDailySong() {
+            const now = new Date();
+            const month = now.getMonth() + 1; // Feb is 2
+            const date = now.getDate();
+            const year = now.getFullYear();
+
+            // Default to Day 7 if out of range, or specific logic
+            let dayData = playlist[7]; 
+
+            if (month === 2 && playlist[date]) {
+                dayData = playlist[date];
+            } else if (month === 2 && date > 14) {
+                 // After Valentine's, maybe keep the last one or random
+                 dayData = playlist[14];
+            }
+
+            bgMusic.src = dayData.file;
+            musicBtn.setAttribute('title', `Now Playing: ${dayData.title}`);
+            console.log(`Loaded song for Feb ${date}: ${dayData.title}`);
+        }
+
+        // Initialize song
+        loadDailySong();
+
         musicBtn.addEventListener('click', () => {
              if (isPlaying) {
                 bgMusic.pause();
@@ -770,7 +806,7 @@
             } else {
                 bgMusic.play().catch(error => {
                     console.log("Audio play failed:", error);
-                    alert("Please add a 'music.mp3' file to the folder to play music!");
+                    alert("Please ensure 'day-7.mp3' through 'day-14.mp3' are in the 'assets' folder!");
                 });
                 musicBtn.classList.add('playing');
                 musicBtn.querySelector('.music-icon').textContent = '⏸️';
