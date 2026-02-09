@@ -81,11 +81,11 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-background-dark text-text-main antialiased overflow-hidden" id="app-body">
+<body class="bg-background-dark text-text-main antialiased overflow-x-hidden md:overflow-hidden" id="app-body">
 
 <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-<div class="flex h-screen w-full relative">
+<div class="flex min-h-screen md:h-screen w-full relative">
     <!-- Ambient Background -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
@@ -196,7 +196,7 @@
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 h-full overflow-y-auto z-10 relative">
+    <main class="flex-1 md:h-full md:overflow-y-auto z-10 relative">
         <!-- Mobile Header -->
         <div class="md:hidden flex items-center justify-between p-4 glass-panel sticky top-0 z-40 bg-background-dark/80 backdrop-blur-xl border-b border-border-gold">
             <span class="font-bold text-white font-serif tracking-wide">The Chronicle</span>

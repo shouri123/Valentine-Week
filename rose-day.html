@@ -67,7 +67,7 @@
         }
     </style>
 </head>
-<body class="bg-rose-dark text-text-main min-h-screen flex flex-col md:flex-row overflow-hidden" id="app-body">
+<body class="bg-rose-dark text-text-main min-h-screen flex flex-col md:flex-row overflow-x-hidden md:overflow-hidden" id="app-body">
 
     <!-- Mobile Overlay -->
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
@@ -174,7 +174,7 @@
     </aside>
 
     <!-- MAIN CONTENT -->
-    <main class="flex-1 relative h-screen overflow-y-auto bg-rose-dark scroll-smooth main-content petal-texture">
+    <main class="flex-1 relative min-h-screen md:h-screen md:overflow-y-auto bg-rose-dark scroll-smooth main-content petal-texture">
         <!-- Mobile Header -->
         <div class="md:hidden flex items-center justify-between p-4 glass-panel sticky top-0 z-30 border-b border-rose-border/30">
             <div class="flex items-center gap-2">
