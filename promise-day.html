@@ -101,7 +101,7 @@
         </style>
     </head>
     <body
-        class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-hidden opacity-0"
+        class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-hidden"
         id="app-body"
     >
         <!-- Toast Container -->
@@ -766,7 +766,7 @@
             window.addEventListener("load", () => {
                 startCountdown();
                 const tl = gsap.timeline();
-                tl.to("#app-body", { opacity: 1, duration: 0.5 })
+                tl.from("#app-body", { opacity: 0, duration: 0.5 })
                     .from(
                         "aside",
                         {

@@ -80,7 +80,7 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-background-dark text-text-main antialiased overflow-hidden opacity-0" id="app-body">
+<body class="bg-background-dark text-text-main antialiased overflow-hidden" id="app-body">
 
 <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
@@ -532,7 +532,7 @@
         startCountdown();
 
         // Reveal Page
-        tl.to("#app-body", { opacity: 1, duration: 0.8 });
+        tl.from("#app-body", { opacity: 0, duration: 0.8 });
 
         // Hero
         tl.from(".hero-text", { y: 20, opacity: 0, duration: 0.8 }, "-=0.2");

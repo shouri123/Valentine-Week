@@ -73,7 +73,7 @@
         }
     </style>
 </head>
-<body class="bg-background-light dark:bg-cocoa-dark text-slate-900 dark:text-cream min-h-screen flex flex-col md:flex-row overflow-hidden opacity-0" id="app-body">
+<body class="bg-background-light dark:bg-cocoa-dark text-slate-900 dark:text-cream min-h-screen flex flex-col md:flex-row overflow-hidden" id="app-body">
     
     <!-- Mobile Overlay -->
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
@@ -530,7 +530,7 @@
             const tl = gsap.timeline();
 
             // 1. Initial Body Reveal
-            tl.to("#app-body", { opacity: 1, duration: 0.5 });
+            tl.from("#app-body", { opacity: 0, duration: 0.5 });
 
             // 2. Sidebar Reveal
             tl.from(".sidebar-panel", { x: -50, opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.2")

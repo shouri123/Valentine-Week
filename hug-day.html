@@ -73,7 +73,7 @@
         }
     </style>
 </head>
-<body class="bg-bg-dark text-text-main min-h-screen flex flex-col md:flex-row overflow-hidden opacity-0" id="app-body">
+<body class="bg-bg-dark text-text-main min-h-screen flex flex-col md:flex-row overflow-hidden" id="app-body">
     
     <!-- Mobile Overlay -->
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
@@ -496,7 +496,7 @@
             startCountdown();
 
             // 1. Reveal Body
-            tl.to("#app-body", { opacity: 1, duration: 0.8 });
+            tl.from("#app-body", { opacity: 0, duration: 0.8 });
 
             // 2. Sidebar Entrance
             tl.from(".sidebar-panel", { x: -50, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.4")
