@@ -4,6 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Chocolate Day Experience</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍫</text></svg>">
     <!-- Date Lock Protection - Redirect if day is locked -->
     <script src="date-lock.js"></script>
     <script src="mobile-ui.js"></script>
@@ -532,11 +533,13 @@
             // 1. Initial Body Reveal
             tl.from("#app-body", { opacity: 0, duration: 0.5 });
 
-            // 2. Sidebar Reveal
-            tl.from(".sidebar-panel", { x: -50, opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.2")
-              .from(".sidebar-header", { opacity: 0, y: -10, duration: 0.5 }, "-=0.4")
-              .from(".nav-item", { x: -20, opacity: 0, stagger: 0.05, duration: 0.5, ease: "power2.out" }, "-=0.3")
-              .from(".sidebar-footer", { opacity: 0, y: 20, duration: 0.5 }, "-=0.3");
+            // 2. Sidebar Reveal (Desktop Only)
+            if (window.innerWidth >= 768) {
+                tl.from(".sidebar-panel", { x: -50, opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.2")
+                  .from(".sidebar-header", { opacity: 0, y: -10, duration: 0.5 }, "-=0.4")
+                  .from(".nav-item", { x: -20, opacity: 0, stagger: 0.05, duration: 0.5, ease: "power2.out" }, "-=0.3")
+                  .from(".sidebar-footer", { opacity: 0, y: 20, duration: 0.5 }, "-=0.3");
+            }
 
             // 3. Main Content - Hero Section
             tl.from(".hero-text", { y: 30, opacity: 0, duration: 0.8, ease: "back.out(1.7)" }, "-=0.5")

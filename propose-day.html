@@ -4,6 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Propose Day Experience - Chronicle 2026</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>">
     <!-- Date Lock Protection - Redirect if day is locked -->
     <script src="date-lock.js"></script>
     <script src="mobile-ui.js"></script>
@@ -533,6 +534,13 @@
 
         // Reveal Page
         tl.from("#app-body", { opacity: 0, duration: 0.8 });
+
+        // Sidebar Entrance (Desktop Only)
+        if (window.innerWidth >= 768) {
+             tl.from(".sidebar-panel", { x: -50, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.4")
+               .from(".sidebar-header", { y: -20, opacity: 0, duration: 0.6 }, "-=0.6")
+               .from(".nav-item", { x: -20, opacity: 0, stagger: 0.05, duration: 0.5 }, "-=0.4");
+        }
 
         // Hero
         tl.from(".hero-text", { y: 20, opacity: 0, duration: 0.8 }, "-=0.2");
