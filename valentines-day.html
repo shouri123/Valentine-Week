@@ -86,9 +86,9 @@
         }
     </style>
 </head>
-<body class="font-display bg-background-dark text-white overflow-hidden antialiased">
+<body class="font-display bg-background-dark text-white overflow-x-hidden md:overflow-hidden antialiased">
     
-    <div class="relative h-screen w-full flex bg-stardust overflow-hidden">
+    <div class="relative min-h-screen md:h-screen w-full flex bg-stardust overflow-x-hidden md:overflow-hidden">
         <!-- Ambient Glow -->
         <div class="absolute inset-0 bg-radial-gradient from-primary/5 via-transparent to-transparent pointer-events-none"></div>
 
@@ -184,7 +184,7 @@
         </aside>
 
         <!-- Main Workspace -->
-        <main class="flex-1 flex flex-col relative overflow-y-auto">
+        <main class="flex-1 flex flex-col relative md:overflow-y-auto">
             <!-- Mobile Header -->
             <div class="lg:hidden flex items-center justify-between p-4 glass-panel sticky top-0 z-30 border-b border-white/10">
                 <div class="flex items-center gap-2">

@@ -102,7 +102,7 @@
         </style>
     </head>
     <body
-        class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-hidden"
+        class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-x-hidden md:overflow-hidden"
         id="app-body"
     >
         <!-- Toast Container -->
@@ -110,7 +110,7 @@
             id="toast-container"
             class="fixed bottom-6 right-6 z-[100] flex flex-col gap-2 pointer-events-none"
         ></div>
-        <div class="flex h-screen w-full relative">
+        <div class="flex min-h-screen md:h-screen w-full relative">
             <!-- Mobile Overlay -->
             <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
             
@@ -241,7 +241,7 @@
                 </div>
             </aside>
             <!-- Main Content Area -->
-            <main class="flex-1 h-full overflow-y-auto z-10 relative">
+            <main class="flex-1 md:h-full md:overflow-y-auto z-10 relative">
                 <!-- Mobile Header -->
                 <div class="md:hidden flex items-center justify-between p-4 glass-panel sticky top-0 z-50 border-b border-border-dark">
                     <div class="flex items-center gap-2">
