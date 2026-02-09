@@ -495,10 +495,12 @@
             // 1. Reveal Body
             tl.from("#app-body", { opacity: 0, duration: 0.8 });
 
-            // 2. Sidebar Entrance
-            tl.from(".sidebar-panel", { x: -50, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.4")
-              .from(".sidebar-header", { y: -20, opacity: 0, duration: 0.6 }, "-=0.6")
-              .from(".nav-item", { x: -20, opacity: 0, stagger: 0.05, duration: 0.5 }, "-=0.4");
+            // 2. Sidebar Entrance (Desktop Only)
+            if (window.innerWidth >= 768) {
+                tl.from(".sidebar-panel", { x: -50, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.4")
+                  .from(".sidebar-header", { y: -20, opacity: 0, duration: 0.6 }, "-=0.6")
+                  .from(".nav-item", { x: -20, opacity: 0, stagger: 0.05, duration: 0.5 }, "-=0.4");
+            }
 
             // 3. Main Content Entrance
             tl.from(".hero-text", { y: 30, opacity: 0, duration: 0.8, ease: "back.out(1.5)" }, "-=0.5")

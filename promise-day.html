@@ -768,7 +768,9 @@
                 startCountdown();
                 const tl = gsap.timeline();
                 tl.from("#app-body", { opacity: 0, duration: 0.5 })
-                    .from(
+                // Sidebar Entrance (Desktop Only)
+                if (window.innerWidth >= 768) {
+                    tl.from(
                         "aside",
                         {
                             x: -60,
@@ -777,7 +779,10 @@
                             ease: "power3.out",
                         },
                         "-=0.3",
-                    )
+                    );
+                }
+                
+                tl
                     .from(
                         "header",
                         {
