@@ -292,6 +292,146 @@
             font-weight: 700;
         }
 
+        /* Gallery Styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 300px;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            font-family: var(--font-script);
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        /* Music Player Styles */
+        .music-player {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+        }
+
+        .music-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 75, 110, 0.5);
+        }
+
+        .music-btn.playing {
+            background: var(--primary);
+            animation: pulse-music 2s infinite;
+        }
+
+        .music-waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .music-btn.playing .music-waves {
+            opacity: 0.5;
+        }
+
+        .music-waves span {
+            width: 3px;
+            background: white;
+            animation: wave 1s infinite;
+        }
+
+        .music-waves span:nth-child(1) { height: 10px; animation-delay: 0s; }
+        .music-waves span:nth-child(2) { height: 15px; animation-delay: 0.2s; }
+        .music-waves span:nth-child(3) { height: 8px; animation-delay: 0.4s; }
+
+        @keyframes wave {
+            0%, 100% { height: 5px; }
+            50% { height: 20px; }
+        }
+
+        @keyframes pulse-music {
+            0% { box-shadow: 0 0 0 0 rgba(255, 75, 110, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 75, 110, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 75, 110, 0); }
+        }
+
+        @media (max-width: 768px) {
+            .days-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+            
+            .day-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .music-player {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
         .day-desc {
             font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.7);
@@ -562,6 +702,49 @@
         </div>
     </section>
 
+    <!-- Photo Gallery -->
+    <section class="grid-section">
+        <div class="section-header">
+            <h2 class="section-title">Our Memories</h2>
+            <p style="color: rgba(255,255,255,0.6)">Captured moments of love</p>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=2070&auto=format&fit=crop" alt="Romantic Moment">
+                <div class="gallery-overlay">
+                    <span>Forever Us</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=1974&auto=format&fit=crop" alt="Love Letter">
+                <div class="gallery-overlay">
+                    <span>My Heart</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?q=80&w=2071&auto=format&fit=crop" alt="Couple Hands">
+                <div class="gallery-overlay">
+                    <span>Together</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <button id="music-toggle" class="music-btn">
+            <span class="music-icon">🎵</span>
+            <div class="music-waves">
+                <span></span><span></span><span></span>
+            </div>
+        </button>
+        <audio id="bg-music" loop>
+            <source src="music.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
     <footer>
         <div class="quote-box" id="daily-quote">
             Love is not about possession, it's all about appreciation.
@@ -572,6 +755,28 @@
     <!-- Scripts -->
     <script src="date-lock.js"></script>
     <script>
+
+
+        // --- Music Player Logic ---
+        const musicBtn = document.getElementById('music-toggle');
+        const bgMusic = document.getElementById('bg-music');
+        let isPlaying = false;
+
+        musicBtn.addEventListener('click', () => {
+             if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.classList.remove('playing');
+                musicBtn.querySelector('.music-icon').textContent = '🎵';
+            } else {
+                bgMusic.play().catch(error => {
+                    console.log("Audio play failed:", error);
+                    alert("Please add a 'music.mp3' file to the folder to play music!");
+                });
+                musicBtn.classList.add('playing');
+                musicBtn.querySelector('.music-icon').textContent = '⏸️';
+            }
+            isPlaying = !isPlaying;
+        });
         // --- 1. Particle Canvas Animation ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
