@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Ensure sidebar is on top of everything (z-index fix)
         sidebar.style.zIndex = '100';
         overlay.style.zIndex = '90';
+        
+        // Lock body scroll
+        document.body.classList.add('overflow-hidden');
     }
 
     function closeSidebar() {
@@ -37,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         transitionTimeout = setTimeout(() => {
             overlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
         }, 300); // Match CSS transition duration
     }
 
