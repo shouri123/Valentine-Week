@@ -9,7 +9,7 @@
         <!-- Date Lock Protection - Redirect if day is locked -->
         <script src="date-lock.js"></script>
         <script src="mobile-ui.js"></script>
-        <script>checkPageAccess(11);</script>
+        <!-- <script>checkPageAccess(11);</script> -->
         <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
         <link
@@ -392,7 +392,7 @@
                                     </div>
                                     <div>
                                         <h3
-                                            class="font-bold text-slate-900 dark:text-white text-lg text-primary"
+                                            class="font-bold text-slate-900 dark:text-white text-lg group-hover:text-primary transition-colors"
                                         >
                                             Grow
                                         </h3>
@@ -564,13 +564,28 @@
             const vowCards = document.querySelectorAll(
                 ".grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-4 button",
             );
+            const promiseTexts = {
+                "Listen": "I promise to listen to you, always with an open heart and without judgment.",
+                "Support": "I promise to stand by your side and support your dreams, no matter what.",
+                "Grow": "I promise to grow with you, learning from every challenge we face together.",
+                "Trust": "I promise to trust you completely and build our foundation on honesty."
+            };
+
             let selectedVows = ["Grow"];
+            // Initialize textarea with default selected vow if empty
+            if(document.getElementById("vow-input") && !document.getElementById("vow-input").value) {
+                 document.getElementById("vow-input").value = promiseTexts["Grow"] || "";
+            }
+
             vowCards.forEach((card) => {
                 card.addEventListener("click", () => {
-                    const title = card.querySelector("h3").textContent;
-                    const isSelected = card.classList.contains("ring-1");
-                    if (isSelected) {
-                        card.classList.remove(
+                    const title = card.querySelector("h3").textContent.trim();
+                    const textarea = document.getElementById("vow-input");
+                    const text = promiseTexts[title];
+
+                    // Deselect all
+                    vowCards.forEach(c => {
+                        c.classList.remove(
                             "ring-1",
                             "ring-primary",
                             "border-primary",
@@ -578,61 +593,72 @@
                             "shadow-lg",
                             "shadow-primary/10",
                         );
-                        card.classList.add(
+                        c.classList.add(
                             "border-slate-200",
                             "dark:border-slate-700",
                             "bg-white",
                             "dark:bg-slate-800",
                         );
-                        card.querySelector(".w-10").classList.remove(
+                        c.querySelector(".w-10").classList.remove(
                             "bg-primary",
                             "text-white",
                         );
-                        card.querySelector(".w-10").classList.add(
+                        c.querySelector(".w-10").classList.add(
                             "bg-slate-100",
                             "dark:bg-slate-700",
                             "text-slate-600",
                         );
-                        const dot = card.querySelector(".animate-pulse");
+                        const dot = c.querySelector(".animate-pulse");
                         if (dot) dot.remove();
-                        selectedVows = selectedVows.filter((v) => v !== title);
-                    } else {
-                        card.classList.add(
-                            "ring-1",
-                            "ring-primary",
-                            "border-primary",
-                            "bg-primary/5",
-                            "shadow-lg",
-                            "shadow-primary/10",
-                        );
-                        card.classList.remove(
-                            "border-slate-200",
-                            "dark:border-slate-700",
-                            "bg-white",
-                            "dark:bg-slate-800",
-                        );
-                        card.querySelector(".w-10").classList.add(
-                            "bg-primary",
-                            "text-white",
-                        );
-                        card.querySelector(".w-10").classList.remove(
-                            "bg-slate-100",
-                            "dark:bg-slate-700",
-                            "text-slate-600",
-                        );
-                        if (!card.querySelector(".animate-pulse")) {
-                            const dot = document.createElement("div");
-                            dot.className =
-                                "absolute top-2 right-2 w-2 h-2 rounded-full bg-primary animate-pulse";
-                            card.appendChild(dot);
-                        }
-                        selectedVows.push(title);
+                    });
+
+                    // Select clicked
+                    card.classList.add(
+                        "ring-1",
+                        "ring-primary",
+                        "border-primary",
+                        "bg-primary/5",
+                        "shadow-lg",
+                        "shadow-primary/10",
+                    );
+                    card.classList.remove(
+                        "border-slate-200",
+                        "dark:border-slate-700",
+                        "bg-white",
+                        "dark:bg-slate-800",
+                    );
+                    card.querySelector(".w-10").classList.add(
+                        "bg-primary",
+                        "text-white",
+                    );
+                    card.querySelector(".w-10").classList.remove(
+                        "bg-slate-100",
+                        "dark:bg-slate-700",
+                        "text-slate-600",
+                    );
+                    
+                    if (!card.querySelector(".animate-pulse")) {
+                        const dot = document.createElement("div");
+                        dot.className =
+                            "absolute top-2 right-2 w-2 h-2 rounded-full bg-primary animate-pulse";
+                        card.appendChild(dot);
                     }
+
+                    // Set text (Replace content)
+                    if (text) {
+                        textarea.value = text;
+                    }
+                    
+                    selectedVows = [title]; // Keep track, though replace logic uses only one
+                    
                     gsap.from(card, {
                         scale: 0.95,
                         duration: 0.2,
                         ease: "back.out(2)",
                     });
+                    
+                    gsap.from(textarea, { scale: 0.99, duration: 0.2, ease: "power2.out" });
+                    textarea.focus();
                 });
             });
 
@@ -671,7 +697,7 @@
                             "text-slate-600",
                         );
                     }
-                    gsap.from(tag, { scale: 0.9, duration: 0.15 });
+                    gsap.from(tag, { scale: 0.9, duration: 0.1, yoyo: true, repeat: 1 });
                 });
             });
 
@@ -799,7 +825,6 @@
                         ".glass-panel.rounded-xl",
                         {
                             y: 40,
-                            opacity: 0,
                             duration: 0.7,
                             ease: "power2.out",
                         },
@@ -807,7 +832,7 @@
                     )
                     .from(
                         ".grid.grid-cols-1 button",
-                        { y: 20, opacity: 0, stagger: 0.08, duration: 0.5 },
+                        { y: 20, stagger: 0.08, duration: 0.5 },
                         "-=0.4",
                     )
                     .from("footer", { opacity: 0, duration: 0.4 }, "-=0.2");
