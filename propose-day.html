@@ -319,10 +319,10 @@
                             
                             <!-- Smart Tags (Added Feature) -->
                             <div class="absolute bottom-4 left-8 right-8 flex gap-2 overflow-x-auto no-scrollbar mask-gradient-r">
-                                <span onclick="addTag('#Forever')" class="px-3 py-1 rounded-full bg-background-dark border border-white/20 text-xs font-medium text-white/80 cursor-pointer hover:border-primary hover:text-primary transition-colors whitespace-nowrap">#Forever</span>
-                                <span onclick="addTag('#Soulmate')" class="px-3 py-1 rounded-full bg-background-dark border border-white/20 text-xs font-medium text-white/80 cursor-pointer hover:border-primary hover:text-primary transition-colors whitespace-nowrap">#Soulmate</span>
-                                <span onclick="addTag('#Yes')" class="px-3 py-1 rounded-full bg-background-dark border border-white/20 text-xs font-medium text-white/80 cursor-pointer hover:border-primary hover:text-primary transition-colors whitespace-nowrap">#Yes</span>
-                                <span onclick="addTag('#MarryMe')" class="px-3 py-1 rounded-full bg-background-dark border border-white/20 text-xs font-medium text-primary cursor-pointer border-primary/40 whitespace-nowrap">#MarryMe</span>
+                                <span onclick="addTag(this, '#Forever')" class="px-3 py-1 rounded-full bg-background-dark border border-white/20 text-xs font-medium text-white/80 cursor-pointer hover:border-primary hover:text-primary transition-colors whitespace-nowrap">#Forever</span>
+                                <span onclick="addTag(this, '#Soulmate')" class="px-3 py-1 rounded-full bg-background-dark border border-white/20 text-xs font-medium text-white/80 cursor-pointer hover:border-primary hover:text-primary transition-colors whitespace-nowrap">#Soulmate</span>
+                                <span onclick="addTag(this, '#Yes')" class="px-3 py-1 rounded-full bg-background-dark border border-white/20 text-xs font-medium text-white/80 cursor-pointer hover:border-primary hover:text-primary transition-colors whitespace-nowrap">#Yes</span>
+                                <span onclick="addTag(this, '#MarryMe')" class="px-3 py-1 rounded-full bg-background-dark border border-white/20 text-xs font-medium text-white/80 cursor-pointer hover:border-primary hover:text-primary transition-colors whitespace-nowrap">#MarryMe</span>
                             </div>
                         </div>
                         
@@ -419,11 +419,26 @@
     }
 
     // Add Tag
-    function addTag(tag) {
+    function addTag(element, tag) {
         const input = document.getElementById('proposal-text');
-        if (input.value.includes(tag)) return;
-        input.value += (input.value.length > 0 ? '\n' : '') + tag;
-        gsap.from(event.target, { scale: 0.9, duration: 0.1, yoyo: true, repeat: 1 });
+        
+        // Define active/inactive classes
+        const inactiveClasses = ['text-white/80', 'border-white/20'];
+        const activeClasses = ['text-primary', 'border-primary'];
+
+        if (input.value.includes(tag)) {
+            // Remove tag if already present (optional toggle behavior)
+            input.value = input.value.replace(new RegExp(`(^|\\n)${tag}`, 'g'), '').trim();
+            element.classList.remove(...activeClasses);
+            element.classList.add(...inactiveClasses);
+        } else {
+            // Add tag
+            input.value += (input.value.length > 0 ? '\n' : '') + tag;
+            element.classList.remove(...inactiveClasses);
+            element.classList.add(...activeClasses);
+        }
+        
+        gsap.from(element, { scale: 0.9, duration: 0.1, yoyo: true, repeat: 1 });
     }
 
     // Add Format
@@ -551,7 +566,7 @@
 
         // Content
         tl.from(".glass-panel", { y: 30, opacity: 0, duration: 0.8, ease: "power2.out", stagger: 0.1 }, "-=0.4");
-        tl.from(".proposal-card", { y: 20, opacity: 0, stagger: 0.1, duration: 0.6, ease: "power2.out" }, "-=0.4");
+        tl.from(".proposal-card", { y: 20, stagger: 0.1, duration: 0.6, ease: "power2.out" }, "-=0.4");
         
         // Magnetic Buttons
         document.querySelectorAll('.magnetic-btn').forEach(btn => {
