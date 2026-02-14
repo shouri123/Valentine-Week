@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close sidebar on window resize if moving to desktop
     window.addEventListener('resize', () => {
-        if (window.innerWidth >= 768) {
+        if (window.innerWidth >= 1024) {
             if (!sidebar.classList.contains('-translate-x-full')) {
                 closeSidebar();
             }
