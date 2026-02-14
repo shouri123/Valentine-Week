@@ -41,6 +41,15 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.2); border-radius: 10px; }
 
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         .glass-panel {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
@@ -195,10 +204,10 @@
                     <span class="material-symbols-outlined text-2xl">menu</span>
                 </button>
             </div>
-            <div class="flex-1 max-w-6xl mx-auto w-full p-6 lg:p-12 flex flex-col gap-10">
+            <div class="flex-1 max-w-6xl mx-auto w-full p-4 lg:p-12 flex flex-col gap-10">
                 <!-- Header -->
-                <header class="text-center pt-4">
-                    <h2 class="font-script text-7xl md:text-9xl text-white drop-shadow-2xl opacity-90">The Symphony of Us</h2>
+                <header class="text-center pt-20 lg:pt-4">
+                    <h2 class="font-script text-5xl md:text-9xl text-white drop-shadow-2xl opacity-90">The Symphony of Us</h2>
                     <p class="text-gold/60 text-xs md:text-sm tracking-[0.4em] uppercase font-bold mt-2">Eternal Melodies • Final Chapter</p>
                 </header>
 
@@ -213,10 +222,10 @@
                         </div>
 
                         <!-- Timeline Row -->
-                        <div id="horizontal-timeline" class="relative py-10 px-4">
-                            <div class="absolute top-[52px] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/20 to-transparent"></div>
+                        <div id="horizontal-timeline" class="relative py-10 px-0 md:px-4 overflow-x-auto pb-4 no-scrollbar">
+                            <div class="absolute top-[52px] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/20 to-transparent min-w-[600px]"></div>
                             
-                            <div class="flex justify-between relative z-10">
+                            <div class="flex justify-between relative z-10 min-w-[600px] px-4">
                                 <div onclick="setActiveDay(0)" class="timeline-node flex flex-col items-center gap-3 transition-all duration-500 cursor-pointer group/node">
                                     <div class="w-4 h-4 rounded-full bg-gold/40 node-glow transition-all group-hover/node:scale-125"></div>
                                     <span class="text-[9px] font-bold text-white/40 uppercase tracking-widest">Rose</span>
@@ -269,16 +278,16 @@
                                     <h4 id="main-content-title" class="text-3xl font-serif text-gold tracking-tight">Teddy Day</h4>
                                     <span id="main-content-badge" class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] text-white/60 font-bold tracking-widest">FEB 10</span>
                                 </div>
-                                <p id="main-content-desc" class="text-xl md:text-2xl font-light leading-relaxed text-white/70 italic">
+                                <p id="main-content-desc" class="text-lg md:text-2xl font-light leading-relaxed text-white/70 italic">
                                     "From the first rose to this very moment, every beat of our hearts has led us here. This is not just a day, but a promise etched in time."
                                 </p>
                                 
                                 <div class="space-y-4">
-                                    <button onclick="openTimeCapsule()" class="flex items-center gap-4 bg-primary hover:bg-red-700 transition-all px-8 py-5 rounded-2xl shadow-xl shadow-primary/20 group">
-                                        <span class="material-symbols-outlined text-gold group-hover:rotate-12 transition-transform">lock_clock</span>
+                                    <button onclick="openTimeCapsule()" class="flex items-center gap-3 md:gap-4 bg-primary hover:bg-red-700 transition-all px-6 py-4 md:px-8 md:py-5 rounded-2xl shadow-xl shadow-primary/20 group">
+                                        <span class="material-symbols-outlined text-gold group-hover:rotate-12 transition-transform text-2xl md:text-3xl">lock_clock</span>
                                         <div class="text-left">
-                                            <p class="text-[9px] text-gold/70 font-bold uppercase tracking-widest leading-none mb-1">Digital Time Capsule</p>
-                                            <p class="text-xl font-bold text-white">Seal Our Memories</p>
+                                            <p class="text-[8px] md:text-[9px] text-gold/70 font-bold uppercase tracking-widest leading-none mb-1">Digital Time Capsule</p>
+                                            <p class="text-lg md:text-xl font-bold text-white">Seal Our Memories</p>
                                         </div>
                                     </button>
                                     <div class="flex items-center gap-2 text-white/30 text-[10px] font-bold uppercase tracking-wider pl-2">
@@ -289,7 +298,7 @@
                             </div>
 
                             <div class="relative group/image">
-                                <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-white/5">
+                                <div class="aspect-video md:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-white/5">
                                     <img id="main-featured-image" src="https://images.unsplash.com/photo-1559454403-b8fb88521f11?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition-all duration-700 group-hover/image:scale-105">
                                     <div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent"></div>
                                     <!-- Location Tag -->
