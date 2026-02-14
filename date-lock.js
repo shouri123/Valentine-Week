@@ -153,3 +153,29 @@ function formatCountdown(dayOfMonth) {
   }
   return `${time.hours}h ${time.minutes}m`;
 }
+
+/**
+ * Lock the entire site outside Valentine's Week (Feb 7-14).
+ * Redirects to locked.html which shows countdown to next Feb 7.
+ * Call this on index.html — day pages already redirect to index.html via checkPageAccess().
+ */
+function checkSiteLock() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1; // 1-indexed
+  const day = now.getDate();
+
+  // Allow access only during Feb 7-14 of the Valentine year
+  const isValentineWeek =
+    year === VALENTINE_YEAR &&
+    month === VALENTINE_MONTH &&
+    day >= 7 &&
+    day <= 14;
+
+  if (!isValentineWeek) {
+    // Don't redirect if we're already on the lock page
+    if (!window.location.pathname.includes("locked.html")) {
+      window.location.href = "locked.html";
+    }
+  }
+}
